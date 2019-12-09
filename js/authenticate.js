@@ -1,16 +1,34 @@
-const title = document.querySelector("#title");
+const title = document.querySelector("#title"),
 
-const backImageTitle = document.querySelector("#backImageTitle");
+      backImageTitle = document.querySelector("#backImageTitle");
 
 //Login Form
-const loginForm = document.querySelector("#loginForm");
+const loginForm = document.querySelector("#loginForm"),
 
-const switchToRegisterLink = document.querySelector("#switchToRegisterLink");
+      switchToRegisterLink = document.querySelector("#switchToRegisterLink");
 
 //Register Form
-const registerForm = document.querySelector("#registerForm");
+const registerForm = document.querySelector("#registerForm"),
 
-const switchToLoginLink = document.querySelector("#switchToLoginLink");
+      switchToLoginLink = document.querySelector("#switchToLoginLink"),
+
+      forwardToRegisterAsAstudentOrACompany = document.querySelector("#forwardToRegisterAsAstudentOrACompany"),
+
+      registerUsername = document.querySelector("#registerUsername"),
+
+      reqResisterMessageUsername = document.querySelector("#reqResisterMessageUsername"),
+
+      registerPass = document.querySelector("#registerPass"),
+
+      reqResisterMessagePassword = document.querySelector("#reqResisterMessagePassword"),
+
+      registerRepeatPass = document.querySelector("#registerRepeatPass"),
+
+      reqResisterMessageRepeatPassword = document.querySelector("#reqResisterMessageRepeatPassword"),
+
+      agreeTerms = document.querySelector("#ckb2"),
+
+      reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms");
 
 //Operations
 switchToRegisterLink.addEventListener("click", () => {
@@ -33,4 +51,23 @@ switchToLoginLink.addEventListener("click", () => {
     registerForm.style.display = "none";
 
     loginForm.style.display = "block";
+});
+
+forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
+   
+    if(registerUsername.value.trim() === ""){
+        reqResisterMessageUsername.style.display = "block";
+    }
+
+    if(registerPass.value.trim() === ""){
+        reqResisterMessagePassword.style.display = "block";
+    }
+
+    if(registerRepeatPass.value.trim() === ""){
+        reqResisterMessageRepeatPassword.style.display = "block";
+    }
+    
+    if(agreeTerms.checked == false){
+        reqResisterMessagePassword.style.display = "block";
+    }
 });
