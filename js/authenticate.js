@@ -55,19 +55,68 @@ switchToLoginLink.addEventListener("click", () => {
 
 forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
    
-    if(registerUsername.value.trim() === ""){
+    if(registerUsername.value.trim() === "")
         reqResisterMessageUsername.style.display = "block";
-    }
+    
+    else
+        reqResisterMessageUsername.style.display = "none";
 
-    if(registerPass.value.trim() === ""){
+    if(registerPass.value.trim() === "")
         reqResisterMessagePassword.style.display = "block";
-    }
 
-    if(registerRepeatPass.value.trim() === ""){
+    else
+        reqResisterMessagePassword.style.display = "none";
+    
+
+    if(registerRepeatPass.value.trim() === "")
         reqResisterMessageRepeatPassword.style.display = "block";
+
+    else
+        reqResisterMessageRepeatPassword.style.display = "none"; 
+    
+    
+    
+    if(agreeTerms.checked === false)
+        reqResisterMessageAgreeTerms.style.display = "block";
+
+    else
+        reqResisterMessageAgreeTerms.style.display = "none"; 
+    
+    if(registerUsername.value.trim() != "" && registerPass.value.trim() != "" && 
+    
+        registerRepeatPass.value.trim() != "" && agreeTerms.checked === true){
+
+            if(registerPass.value === registerRepeatPass.value){
+
+                document.getElementById("diffPassw").style.display='none';
+
+                document.getElementById('id01').style.display='block';
+            }
+
+            else
+                document.getElementById("diffPassw").style.display='block';
     }
     
-    if(agreeTerms.checked == false){
-        reqResisterMessagePassword.style.display = "block";
-    }
 });
+
+const studentRegistration = (username, password) => {
+    console.log(username, password);
+
+    document.getElementById('id02').style.display='block';
+}
+
+const companyRegistration = (username, password) => {
+    console.log(username, password);
+}
+
+document.querySelector("#registerAsStudent").addEventListener("click", () => {
+
+    studentRegistration(registerUsername.value, registerPass.value);
+});
+
+document.querySelector("#registerAsCompany").addEventListener("click", () => {
+
+    companyRegistration(registerUsername.value, registerPass.value);
+});
+
+
