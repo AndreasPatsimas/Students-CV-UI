@@ -41,7 +41,7 @@
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password" required>
+						<input class="input100" type="password" name="password" placeholder="Enter password" required>
 						<span class="focus-input100"></span>
 					</div>
 
@@ -76,7 +76,7 @@
 						
 						<div class="wrap-input100 validate-input " data-validate="Username is required">
 							<span class="label-input100">Username</span>
-							<input class="input100" type="text" name="username" id="registerUsername" placeholder="Enter username" required>
+							<input class="input100" type="text" id="registerUsername" placeholder="Enter username" required>
 							<span class="focus-input100"></span>
 						</div>
 						<p style="display: none; color:red;" id="reqResisterMessageUsername">Username is required</p>
@@ -84,7 +84,7 @@
 
 						<div class="wrap-input100 validate-input" data-validate = "Password is required">
 							<span class="label-input100">Password</span>
-							<input class="input100" type="password" name="pass" id="registerPass" placeholder="*************" required>
+							<input class="input100" type="password" id="registerPass" placeholder="*************" required>
 							<span class="focus-input100"></span>
 						</div>
 						<p style="display: none; color:red;" id="reqResisterMessagePassword">Password is required</p>
@@ -137,6 +137,7 @@
 		</div>
 	</div>
 
+	<!-- Modal Choice -->
 	<div class="w3-container">
 		<div id="id01" class="w3-modal">
 		  <div class="w3-modal-content">
@@ -156,12 +157,12 @@
 		</div>
 	  </div>
 
+	  <!-- Registration Student Modal -->
 	  <div class="w3-container">
 		<div id="id02" class="w3-modal">
 		  <div class="w3-modal-content">
 			<div class="w3-container">
 			  <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-			  
 			  <form class="login100-form validate-form" id="studentForm">
 				<div class="wrap-input100 validate-input m-b-26" data-validate="Firstname is required">
 					<span class="label-input100">Firstname</span>
@@ -183,40 +184,36 @@
 
 				<div class="wrap-input100 validate-input m-b-18" data-validate = "is required">
 					<span class="label-input100">Mobile phone</span>
-					<input class="input100" type="number" name="mobile_phone" placeholder="Enter mobile phone">
+					<input class="input100" type="number" name="mobilePhone" placeholder="Enter mobile phone">
 					<span class="focus-input100"></span>
+					<p style="display: none; color:red;" id="mobReq">Valid phone numbers must have 10 digits.</p>
 				</div>
 
 				<br>
 				<div class=" validate-input m-b-18" data-validate = "is required">
 						<span class="label-input100">Birthday</span>
-						<input type="date" class="input100 dob" name="dateofbirth" id="dateofbirth">
+						<input type="date" class="input100 dob" name="dateOfbirth" id="dateofbirth" required>
 						<span class="focus-input100"></span>
 				</div>
 				
 				<br><br><br>
 
 				<div class="custom-select" style="width:200px;">
-					<select required>
-						<option value="0">Select department</option>
-						<option value="1">Audi</option>
-						<option value="2">BMW</option>
-						<option value="3">Citroen</option>
-						<option value="4">Ford</option>
-						<option value="5">Honda</option>
-						<option value="6">Jaguar</option>
-						<option value="7">Land Rover</option>
-						<option value="8">Mercedes</option>
-						<option value="9">Mini</option>
-						<option value="10">Nissan</option>
-						<option value="11">Toyota</option>
-						<option value="12">Volvo</option>
+					<select name="department" required>
+						<option value="0">Select Department</option>
+						<option value="1">Department of Public Health</option>
+						<option value="2">Department of Management, Economics & Social Sciences</option>
+						<option value="3">Department of Food Sciences</option>
+						<option value="4">Department of Health and Welfare Sciences</option>
+						<option value="5">Department of Applied Arts and Culture</option>
+						<option value="6">Department of Engineering</option>
 					</select>
+					<p style="display: none; color:red;" id="departChoice">Department choice is required.</p>
 				</div>
 				<br><br><br>
 				<div class="flex-sb-m w-full p-b-30">
 					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb3" type="checkbox" name="work-experience">
+						<input class="input-checkbox100" id="ckb3" type="checkbox" name="workExperience">
 						<label class="label-checkbox100" for="ckb3">
 							Work Experience
 						</label>
@@ -226,10 +223,11 @@
 
 				
 				<div class="container-login100-form-btn">
-					<button class="login100-form-btn">
+					<button class="login100-form-btn" type="submit">
 						Sign up
 					</button>
 				</div>
+				<img id="loadingImage" src="images/loading.gif" style="display: none;">
 			</form>
 			
 			</div>

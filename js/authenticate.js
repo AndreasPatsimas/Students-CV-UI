@@ -28,7 +28,9 @@ const registerForm = document.querySelector("#registerForm"),
 
       agreeTerms = document.querySelector("#ckb2"),
 
-      reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms");
+      reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms"),
+
+      studentForm = document.querySelector("#studentForm");
 
 //Operations
 switchToRegisterLink.addEventListener("click", () => {
@@ -53,6 +55,8 @@ switchToLoginLink.addEventListener("click", () => {
     loginForm.style.display = "block";
 });
 
+
+//Forward to choose if you are a student or a company
 forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
    
     if(registerUsername.value.trim() === "")
@@ -99,10 +103,49 @@ forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
     
 });
 
+//Student Registration
 const studentRegistration = (username, password) => {
-    console.log(username, password);
+    
+    let studentData = formToJSON(studentForm.elements);
+    
+    studentData.username = username;
 
-    document.getElementById('id02').style.display='block';
+    studentData.password = password;
+
+    if(document.querySelector("#ckb3").checked === true)
+        studentData.workExperience = true;
+    
+    else
+        studentData.workExperience = false;
+
+    
+    if(studentData.department != 0){
+        
+        document.querySelector("#departChoice").style.display = "none";
+        
+        if(studentData.mobilePhone.trim() === "" || studentData.mobilePhone.length == 10){
+            
+            document.querySelector("#mobReq").style.display = "none";
+
+            document.querySelector("#loadingImage").style.display = "block";
+
+            console.log(studentData);
+
+            setTimeout(() => {
+
+                document.querySelector("#loadingImage").style.display = "none";
+                
+                location.reload();
+                
+            }, 3000);
+             
+        }
+        else
+            document.querySelector("#mobReq").style.display = "block";
+    }
+    
+    else
+        document.querySelector("#departChoice").style.display = "block";
 }
 
 const companyRegistration = (username, password) => {
@@ -111,12 +154,39 @@ const companyRegistration = (username, password) => {
 
 document.querySelector("#registerAsStudent").addEventListener("click", () => {
 
-    studentRegistration(registerUsername.value, registerPass.value);
+    document.getElementById('id02').style.display='block';
+
 });
 
 document.querySelector("#registerAsCompany").addEventListener("click", () => {
 
     companyRegistration(registerUsername.value, registerPass.value);
 });
+
+studentForm.addEventListener("submit", (e) => {
+        
+    e.preventDefault();
+
+    studentRegistration(registerUsername.value, registerPass.value);
+});
+
+
+//Login
+loginForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    let authenticationData = formToJSON(loginForm.elements);
+
+    console.log(authenticationData);
+});
+
+
+const formToJSON = elements => [].reduce.call(elements, (data, element) => {
+
+    data[element.name] = element.value;
+    return data;
+
+  }, {});
 
 
