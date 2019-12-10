@@ -1,62 +1,26 @@
-const title = document.querySelector("#title"),
+import{ formToJSON } from '../utils/bind.js';
 
-      backImageTitle = document.querySelector("#backImageTitle");
+const   forwardToRegisterAsAstudentOrACompany = document.querySelector("#forwardToRegisterAsAstudentOrACompany"),
 
-//Login Form
-const loginForm = document.querySelector("#loginForm"),
+        registerUsername = document.querySelector("#registerUsername"),
 
-      switchToRegisterLink = document.querySelector("#switchToRegisterLink");
+        reqResisterMessageUsername = document.querySelector("#reqResisterMessageUsername"),
 
-//Register Form
-const registerForm = document.querySelector("#registerForm"),
+        registerPass = document.querySelector("#registerPass"),
 
-      switchToLoginLink = document.querySelector("#switchToLoginLink"),
+        reqResisterMessagePassword = document.querySelector("#reqResisterMessagePassword"),
 
-      forwardToRegisterAsAstudentOrACompany = document.querySelector("#forwardToRegisterAsAstudentOrACompany"),
+        registerRepeatPass = document.querySelector("#registerRepeatPass"),
 
-      registerUsername = document.querySelector("#registerUsername"),
+        reqResisterMessageRepeatPassword = document.querySelector("#reqResisterMessageRepeatPassword"),
 
-      reqResisterMessageUsername = document.querySelector("#reqResisterMessageUsername"),
+        agreeTerms = document.querySelector("#ckb2"),
 
-      registerPass = document.querySelector("#registerPass"),
+        reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms"),
 
-      reqResisterMessagePassword = document.querySelector("#reqResisterMessagePassword"),
+        studentForm = document.querySelector("#studentForm");
 
-      registerRepeatPass = document.querySelector("#registerRepeatPass"),
-
-      reqResisterMessageRepeatPassword = document.querySelector("#reqResisterMessageRepeatPassword"),
-
-      agreeTerms = document.querySelector("#ckb2"),
-
-      reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms"),
-
-      studentForm = document.querySelector("#studentForm");
-
-//Operations
-switchToRegisterLink.addEventListener("click", () => {
-
-    title.textContent = "Sign up";
-
-    backImageTitle.textContent = "Sign Up";
-
-    loginForm.style.display = "none";
-
-    registerForm.style.display = "block";
-});
-
-switchToLoginLink.addEventListener("click", () => {
-
-    title.textContent = "Sign in";
-
-    backImageTitle.textContent = "Sign In";
-
-    registerForm.style.display = "none";
-
-    loginForm.style.display = "block";
-});
-
-
-//Forward to choose if you are a student or a company
+        //Forward to choose if you are a student or a company
 forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
    
     if(registerUsername.value.trim() === "")
@@ -135,8 +99,10 @@ const studentRegistration = (username, password) => {
 
                 document.querySelector("#loadingImage").style.display = "none";
                 
-                location.reload();
+                document.querySelector("#registerSuccess").style.display = "block";
                 
+                setTimeout(() => location.reload(), 2000);
+
             }, 3000);
              
         }
@@ -169,24 +135,3 @@ studentForm.addEventListener("submit", (e) => {
 
     studentRegistration(registerUsername.value, registerPass.value);
 });
-
-
-//Login
-loginForm.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    let authenticationData = formToJSON(loginForm.elements);
-
-    console.log(authenticationData);
-});
-
-
-const formToJSON = elements => [].reduce.call(elements, (data, element) => {
-
-    data[element.name] = element.value;
-    return data;
-
-  }, {});
-
-

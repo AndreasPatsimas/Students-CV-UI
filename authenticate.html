@@ -47,7 +47,7 @@
 
 					<div class="flex-sb-m w-full p-b-30">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
@@ -66,12 +66,15 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" id="loginbtn">
 							Login
 						</button>
+						<img id="loadingImag" src="images/loading.gif" style="display: none;">
 					</div>
+					
 				</form>
-
+				
+				<p style="display: none; color:red; text-align: center;" id="authFail">Authentication failed. Wrong username or password</p>
 				<form class="login100-form validate-form" id="registerForm" style="display: none;">
 						
 						<div class="wrap-input100 validate-input " data-validate="Username is required">
@@ -228,6 +231,8 @@
 					</button>
 				</div>
 				<img id="loadingImage" src="images/loading.gif" style="display: none;">
+				<br><br><br><br>
+				<p style="display: none; color:#57b846;" id="registerSuccess">Your registration has completed!</p>
 			</form>
 			
 			</div>
@@ -237,8 +242,9 @@
 
 	
 	
-	<script src="js/authenticate.js"></script>
-	<script src="js/combobox.js"></script>
+	<script src="js/authentication/authenticate.js" type="module"></script>
+	<script src="js/authentication/register.js" type="module"></script>
+	<script src="js/components/combobox.js" type="module"></script>
 
 </body>
 </html>

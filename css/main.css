@@ -522,8 +522,12 @@ input.input100 {
   top:0;
  }
 
-/* #loadingImage{
-  
-  right:0;
-  top:0;
-} */
+#loadingImag{
+  /* margin-left: auto; for center
+  margin-right: auto; */
+  width: 30%;
+}
+
+#loadingImage{
+  width: 30%;
+}
