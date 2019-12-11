@@ -105,8 +105,6 @@ forgotPassForm.addEventListener("submit", (e) => {
     setTimeout(() => {
 
         document.querySelector("#loadingIma").style.display = "none";
-        
-        //document.querySelector("#loginbtn").style.display = "block";
 
         if(hasSentEmail){
 
