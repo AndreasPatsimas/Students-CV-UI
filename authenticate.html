@@ -54,7 +54,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
+							<a href="#" class="txt1" id="forgotPass">
 								Forgot Password?
 							</a>
 							<a href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30" id="switchToRegisterLink">
@@ -139,6 +139,42 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Forgot Password Modal -->
+	<div class="w3-container">
+		<div id="id03" class="w3-modal">
+		  <div class="w3-modal-content">
+			<div class="w3-container">
+			  <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+			  <form class="login100-form validate-form" id="forgotPassForm">
+				<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+					<span class="label-input100">Username</span>
+					<input class="input100" type="text" name="username" placeholder="Enter username" required>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
+					<span class="label-input100">Email</span>
+					<input class="input100" type="email" name="email"  placeholder="Enter email" required>
+					<span class="focus-input100"></span>
+				</div>
+
+				<br>
+
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" type="submit">
+						Submit
+					</button>
+				</div>
+				<img id="loadingIma" src="images/loading.gif" style="display: none;">
+				<br><br><br><br>
+				<p style="display: none; color:#57b846;" id="mailSuccess">An email has sent to your account.</p>
+				<p style="display: none; color:red;" id="mailFail">Username or email not verified.</p>
+			</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
 
 	<!-- Modal Choice -->
 	<div class="w3-container">

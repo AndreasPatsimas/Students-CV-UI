@@ -7,7 +7,9 @@ const title = document.querySelector("#title"),
 //Login Form
 const loginForm = document.querySelector("#loginForm"),
 
-      switchToRegisterLink = document.querySelector("#switchToRegisterLink");
+      switchToRegisterLink = document.querySelector("#switchToRegisterLink"),
+      
+      forgotPassForm = document.querySelector("#forgotPassForm");
 
 //Register Form
 const registerForm = document.querySelector("#registerForm"),
@@ -82,5 +84,37 @@ loginForm.addEventListener("submit", (e) => {
     }, 3000);
 });
 
+//Forgot Password
+document.querySelector("#forgotPass").addEventListener("click", () => {
 
+    document.querySelector("#id03").style.display = "block";
+});
 
+forgotPassForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    let data = formToJSON(forgotPassForm.elements);
+
+    document.querySelector("#loadingIma").style.display = "block";
+
+    console.log(data);
+
+    let hasSentEmail = true;
+
+    setTimeout(() => {
+
+        document.querySelector("#loadingIma").style.display = "none";
+        
+        //document.querySelector("#loginbtn").style.display = "block";
+
+        if(hasSentEmail){
+
+            document.querySelector("#mailSuccess").style.display = "block";
+        }
+        
+        else
+            document.querySelector("#mailFail").style.display = "block";
+
+    }, 3000);
+});
