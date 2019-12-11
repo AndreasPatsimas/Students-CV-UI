@@ -10,7 +10,11 @@
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/vendors/linericon/style.css">
 		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/style.css">
+		
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/dob.css">
         
     </head>
     <body>
@@ -26,16 +30,16 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+								<li class="nav-item active"><a class="nav-link" href="#" id="home">Home</a></li>
 								<!-- <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>   -->
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CV</a>
 									<ul class="dropdown-menu">
-										<li class="nav-item"><a class="nav-link" href="#">UPLOAD CV</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">DOWNLOAD CV</a></li>
+										<li class="nav-item"><a class="nav-link" href="#" id="upload">UPLOAD CV</a></li>
+										<li class="nav-item"><a class="nav-link" href="#" id="download">DOWNLOAD CV</a></li>
 									</ul>
 								</li> 
-								<li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+								<li class="nav-item"><a class="nav-link" href="#" id="settings">Settings</a></li>
 							</ul>
 						</div> 
 					</div>
@@ -59,7 +63,7 @@
 									<h6>Hello Everybody, i am</h6>
 									<h3>Tasos Bolosis</h3>
 									<h4>Graduate of the Department of Engineering</h4>
-									<p>Go to settings and write a description...</p>
+									<p>Go to settings and write a description about you...</p>
 									<ul class="list basic_info">
 										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
 										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
@@ -81,26 +85,60 @@
 					<div class="banner_content" style="display: none;" id="settingsArea">
 						<div class="media">
 							<div class="d-flex">
-								<img src="images/sotiris.jpg" alt="">
+								<img src="images/pada.jpg" alt="">
 							</div>
 							<div class="media-body">
-								<div class="personal_text">
-									<h6>Hello Everybody, i scbhk</h6>
-									<h3>Tasos Bolosis</h3>
-									<h4>Graduate of the Department of Engineering</h4>
-									<p>Go to settings and write a description...</p>
-									<ul class="list basic_info">
-										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
-										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
-										<li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
-										<li><a href="#"><i class="lnr lnr-briefcase"></i> Santa monica bullevard</a></li>
-									</ul>
-									<ul class="list personal_social">
-										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-									</ul>
-								</div>
+
+								<form class="login100-form validate-form" id="settingsForm">
+										<div class="wrap-input100 validate-input m-b-26" data-validate=" is required">
+											<span class="label-input100">Description</span>
+											<input class="input100" type="text" name="description" id="description" placeholder="Enter description">
+											<span class="focus-input100"></span>
+										</div>
+						
+										<div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
+												<span class="label-input100">Email</span>
+												<input class="input100" type="email" name="email" id="email" placeholder="Enter email" required>
+												<span class="focus-input100"></span>
+											</div>
+							
+											<div class="wrap-input100 validate-input m-b-18" data-validate = "is required">
+												<span class="label-input100">Mobile phone</span>
+												<input class="input100" type="number" name="mobilePhone" id="mobilePhone" placeholder="Enter mobile phone">
+												<span class="focus-input100"></span>
+												<p style="display: none; color:red;" id="mobReq">Valid phone numbers must have 10 digits.</p>
+											</div>
+							
+											<br>
+											<div class=" validate-input m-b-18" data-validate = "is required">
+													<span class="label-input100">Birthday</span>
+													<input type="date" class="input100 dob" name="dateOfbirth" id="dob" required>
+													<span class="focus-input100"></span>
+											</div>
+											
+											<br><br><br>
+
+											<div class="flex-sb-m w-full p-b-30">
+													<div class="contact100-form-checkbox">
+														<input class="input-checkbox100" id="ckb1" type="checkbox" name="workExperience">
+														<label class="label-checkbox100" for="ckb1">
+															Work Experience
+														</label>
+													</div>					
+													
+											</div>
+						
+										<div class="container-login100-form-btn">
+											<button class="login100-form-btn" type="submit">
+												Submit
+											</button>
+										</div>
+										<img id="loadingIma" src="images/loading.gif" style="display: none;">
+										<br><br><br><br>
+										<p style="display: none; color:#57b846;" id="mailSuccess">Your settings have been saved.</p>
+										<p style="display: none; color:red;" id="mailFail">There is another user who has this email account.</p>
+									</form>
+								
 							</div>
 						</div>
 					</div>
