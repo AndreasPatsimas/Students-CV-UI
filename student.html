@@ -9,7 +9,7 @@
         
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/vendors/linericon/style.css">
-    
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
         
     </head>
@@ -26,8 +26,8 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							<ul class="nav navbar-nav menu_nav ml-auto">
-								<li class="nav-item active"><a class="nav-link" href="#">Home</a></li> 
-								<li class="nav-item"><a class="nav-link" href="#">Settings</a></li> 
+								<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+								<!-- <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>   -->
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CV</a>
 									<ul class="dropdown-menu">
@@ -35,7 +35,7 @@
 										<li class="nav-item"><a class="nav-link" href="#">DOWNLOAD CV</a></li>
 									</ul>
 								</li> 
-								<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
 							</ul>
 						</div> 
 					</div>
@@ -44,11 +44,12 @@
         </header>
         <!--================Header Menu Area =================-->
         
-        <!--================Home Banner Area =================-->
-        <section class="home_banner_area">
-           	<div class="container box_1620">
-           		<div class="banner_inner d-flex align-items-center">
-					<div class="banner_content">
+        
+        <section class="home_banner_area" >
+           	<div class="container box_1620" >
+           		<div class="banner_inner d-flex align-items-center" >
+		<!--================Home Banner Area =================-->
+					<div class="banner_content" id="homeArea">
 						<div class="media">
 							<div class="d-flex">
 								<img src="images/sotiris.jpg" alt="">
@@ -56,14 +57,14 @@
 							<div class="media-body">
 								<div class="personal_text">
 									<h6>Hello Everybody, i am</h6>
-									<h3>Donald McKinney</h3>
-									<h4>Junior UI/UX Developer</h4>
-									<p>You will begin to realise why this exercise is called the Dickens Pattern (with reference to the ghost showing Scrooge some different futures)</p>
+									<h3>Tasos Bolosis</h3>
+									<h4>Graduate of the Department of Engineering</h4>
+									<p>Go to settings and write a description...</p>
 									<ul class="list basic_info">
 										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
 										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
 										<li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
-										<li><a href="#"><i class="lnr lnr-home"></i> Santa monica bullevard</a></li>
+										<li><a href="#"><i class="lnr lnr-briefcase"></i> Work Experience: <span id="nonWorkExp" style="color: red;">x</span> <span id="workExp" style="color: green; display: none;">✓</span></a><i class="lnr lnr-checkmark-circle" style="display: none; color: green;"></i><i class="lnr lnr-cross-circle" style="color:red; display: none;"></i></li>
 									</ul>
 									<ul class="list personal_social">
 										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -74,11 +75,43 @@
 							</div>
 						</div>
 					</div>
+					<!--================Home Banner Area =================-->
+
+					<!--Settings-->
+					<div class="banner_content" style="display: none;" id="settingsArea">
+						<div class="media">
+							<div class="d-flex">
+								<img src="images/sotiris.jpg" alt="">
+							</div>
+							<div class="media-body">
+								<div class="personal_text">
+									<h6>Hello Everybody, i scbhk</h6>
+									<h3>Tasos Bolosis</h3>
+									<h4>Graduate of the Department of Engineering</h4>
+									<p>Go to settings and write a description...</p>
+									<ul class="list basic_info">
+										<li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li>
+										<li><a href="#"><i class="lnr lnr-phone-handset"></i> 44 (012) 6954 783</a></li>
+										<li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
+										<li><a href="#"><i class="lnr lnr-briefcase"></i> Santa monica bullevard</a></li>
+									</ul>
+									<ul class="list personal_social">
+										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--Settings-->
+
 				</div>
             </div>
         </section>
-        <!--================End Home Banner Area =================-->
-        
+		
+		
+        <script src="js/profiles/student.js" type="module"></script>
         
     </body>
 </html>
