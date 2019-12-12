@@ -14,6 +14,8 @@ const homeArea = document.querySelector("#homeArea"),
       deleteMyProfile = document.querySelector("#deleteMyProfile"),
       
       uploadCv = document.querySelector("#upload"),
+
+      uploadCvInput = document.querySelector("#uploadCV"),
       
       downloadCv = document.querySelector("#download");
 
@@ -57,9 +59,32 @@ else{
     uploadCv.textContent = "UPLOAD CV";
 }
 
+
 uploadCv.addEventListener("click", () => {
-    document.querySelector("#uploadCV").click();
+    uploadCvInput.click();
 });
+
+const upload = (file) => {
+    console.log(file)
+
+    fetch('http://localhost:8080/files/uploadFile', { 
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded" // ή multipart/mixed;boundary=gc0p4Jq0M2Yt08jU534c0p ή // multipart/form-data 
+    },
+    body: file // This is your file object
+  }).then(
+    response => response.json() // if the response is a JSON object
+  ).then(
+    success => console.log(success) // Handle the success response object
+  ).catch(
+    error => console.log(error) // Handle the error response object
+  );
+};
+
+const onSelectFile = () => upload(uploadCvInput.files[0]);
+
+uploadCvInput.addEventListener('change', onSelectFile, false);
 
 downloadCv.addEventListener("click", () => {
     console.log("download");
