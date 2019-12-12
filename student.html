@@ -34,6 +34,7 @@
 								<!-- <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>   -->
 								<li class="nav-item submenu dropdown">
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CV</a>
+									<input id="uploadCV" style="display: none;" type="file"/>
 									<ul class="dropdown-menu">
 										<li class="nav-item"><a class="nav-link" href="#" id="upload">UPLOAD CV</a></li>
 										<li class="nav-item"><a class="nav-link" href="#" id="download">DOWNLOAD CV</a></li>
@@ -56,7 +57,7 @@
 					<div class="banner_content" id="homeArea">
 						<div class="media">
 							<div class="d-flex">
-								<img src="images/sotiris.jpg" alt="">
+								<img class="profileImage" src="images/pada.jpg" alt="">
 							</div>
 							<div class="media-body">
 								<div class="personal_text">
@@ -83,13 +84,22 @@
 
 					<!--Settings-->
 					<div class="banner_content" style="display: none;" id="settingsArea">
+						<input id="changePhoto" style="display: none;" type="file"/>
+						<a href="#" style="color: #57b846;" id="changePhotoLink"><i class="lnr lnr-pencil"></i> Change my photo</a>
 						<div class="media">
-							<div class="d-flex">
-								<img src="images/pada.jpg" alt="">
+							<div >
+								
+								<img class="profileImage" src="images/pada.jpg" alt="">
+								
 							</div>
+							
 							<div class="media-body">
-
+								
 								<form class="login100-form validate-form" id="settingsForm">
+										<div class=" m-b-26">												
+											<a href="#" style="color: red;" id="deleteMyProfile"><i class="lnr lnr-power-switch"></i> Delete My Profile</a>
+										</div>
+
 										<div class="wrap-input100 validate-input m-b-26" data-validate=" is required">
 											<span class="label-input100">Description</span>
 											<input class="input100" type="text" name="description" id="description" placeholder="Enter description">
@@ -138,7 +148,6 @@
 										<p style="display: none; color:#57b846;" id="mailSuccess">Your settings have been saved.</p>
 										<p style="display: none; color:red;" id="mailFail">There is another user who has this email account.</p>
 									</form>
-								
 							</div>
 						</div>
 					</div>

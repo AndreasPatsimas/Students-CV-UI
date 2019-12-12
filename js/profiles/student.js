@@ -10,6 +10,8 @@ const homeArea = document.querySelector("#homeArea"),
       settingsForm = document.querySelector("#settingsForm"),
 
       settingsArea = document.querySelector("#settingsArea"),
+
+      deleteMyProfile = document.querySelector("#deleteMyProfile"),
       
       uploadCv = document.querySelector("#upload"),
       
@@ -30,6 +32,10 @@ settings.addEventListener("click", () => {
     settingsArea.style.display = "block";
 });
 
+//profile values
+document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg")
+
+
 //document.querySelector("#ckb1").checked = true;
 //document.querySelector("#ckb1").checked = false;
 
@@ -38,13 +44,21 @@ settings.addEventListener("click", () => {
 //cv operations
 let isCvUploaded = true;
 
-if(!isCvUploaded)
+if(isCvUploaded){
+
     downloadCv.style.display = "block";
-else
+
+    uploadCv.textContent = "CHANGE MY CV";
+}
+else{
+
     downloadCv.style.display = "none";
 
+    uploadCv.textContent = "UPLOAD CV";
+}
+
 uploadCv.addEventListener("click", () => {
-    console.log("upload");
+    document.querySelector("#uploadCV").click();
 });
 
 downloadCv.addEventListener("click", () => {
@@ -52,6 +66,14 @@ downloadCv.addEventListener("click", () => {
 });
 
 // settings operations
+//image
+document.querySelector("#changePhotoLink").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    document.querySelector("#changePhoto").click();
+});
+
+//form
 settingsForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
@@ -103,3 +125,12 @@ settingsForm.addEventListener("submit", (e) => {
             document.querySelector("#mobReq").style.display = "block";
 });
 
+deleteMyProfile.addEventListener("click", () => {
+    
+    let confirmation = confirm("Are you sure you want to delete your profile?");
+
+    if(confirmation)
+        console.log("confirm");
+    else
+        console.log("No.")
+});
