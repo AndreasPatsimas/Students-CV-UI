@@ -59,32 +59,35 @@ else{
     uploadCv.textContent = "UPLOAD CV";
 }
 
-
+//////////////////
 uploadCv.addEventListener("click", () => {
     uploadCvInput.click();
 });
 
 const upload = (file) => {
-    console.log(file)
+
+    const formData = new FormData();
+    
+    formData.append('file', file);
 
     fetch('http://localhost:8080/files/uploadFile', { 
     method: 'POST',
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded" // ή multipart/mixed;boundary=gc0p4Jq0M2Yt08jU534c0p ή // multipart/form-data 
-    },
-    body: file // This is your file object
+    body: formData 
   }).then(
-    response => response.json() // if the response is a JSON object
+    response => response.json() 
   ).then(
-    success => console.log(success) // Handle the success response object
+    success => console.log(success) 
   ).catch(
-    error => console.log(error) // Handle the error response object
+    error => console.log(error) 
   );
+
 };
 
 const onSelectFile = () => upload(uploadCvInput.files[0]);
 
 uploadCvInput.addEventListener('change', onSelectFile, false);
+
+////////////////
 
 downloadCv.addEventListener("click", () => {
     console.log("download");
