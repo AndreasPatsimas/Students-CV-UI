@@ -70,20 +70,38 @@ uploadCv.addEventListener("click", () => {
 
 const upload = (file) => {
 
+    document.querySelector("#loadingImage").style.display = "block";
+
     const formData = new FormData();
     
     formData.append('file', file);
 
-    fetch('http://localhost:8080/files/uploadFile', { 
-    method: 'POST',
-    body: formData 
-  }).then(
-    response => response.json() 
-  ).then(
-    success => console.log(success) 
-  ).catch(
-    error => console.log(error) 
-  );
+    setTimeout(() => {
+        fetch('http://localhost:8080/files/uploadFile', { 
+            method: 'POST',
+            body: formData 
+        })
+        .then(
+        response => response.json() 
+        )
+        .then((data)=> {
+        
+            console.log(data);
+    
+            document.querySelector("#loadingImage").style.display = "none";
+    
+            document.querySelector("#uploadSuccess").style.display = "block";
+    
+            setTimeout(() => {
+    
+            document.querySelector("#uploadSuccess").style.display = "none";
+    
+            }, 5000);
+        })
+        .catch(
+            error => console.log(error) 
+        );
+    }, 3000);
 
 };
 
@@ -94,7 +112,6 @@ uploadCvInput.addEventListener('change', onSelectFile, false);
 ////////////////
 
 downloadCv.addEventListener("click", () => {
-    console.log("download");
     
     fetch("http://localhost:8080/files/downloadFile/LICENSE.txt", {
         method: 'GET',
@@ -106,7 +123,7 @@ downloadCv.addEventListener("click", () => {
         downloadLink.click();
         
         })
-      .then(()=> console.log("success"))
+      .then(()=> console.log("download success"))
       .catch(err => console.log(err));
     
 });
