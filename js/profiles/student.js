@@ -17,7 +17,11 @@ const homeArea = document.querySelector("#homeArea"),
 
       uploadCvInput = document.querySelector("#uploadCV"),
       
-      downloadCv = document.querySelector("#download");
+      downloadCv = document.querySelector("#download"),
+
+      downloadLink = document.createElement('a');
+
+      downloadLink.style.display = "none";
 
 //tabs
 home.addEventListener("click", () => {
@@ -91,6 +95,20 @@ uploadCvInput.addEventListener('change', onSelectFile, false);
 
 downloadCv.addEventListener("click", () => {
     console.log("download");
+    
+    fetch("http://localhost:8080/files/downloadFile/LICENSE.txt", {
+        method: 'GET',
+    })
+      .then(res => {
+        let blob = new Blob([res]);
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = "LICENSE.txt";
+        downloadLink.click();
+        
+        })
+      .then(()=> console.log("success"))
+      .catch(err => console.log(err));
+    
 });
 
 // settings operations
