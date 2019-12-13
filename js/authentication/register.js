@@ -18,9 +18,11 @@ const   forwardToRegisterAsAstudentOrACompany = document.querySelector("#forward
 
         reqResisterMessageAgreeTerms = document.querySelector("#reqResisterMessageAgreeTerms"),
 
-        studentForm = document.querySelector("#studentForm");
+        studentForm = document.querySelector("#studentForm"),
 
-        //Forward to choose if you are a student or a company
+        companyForm = document.querySelector("#companyForm");
+
+//Forward to choose if you are a student or a company
 forwardToRegisterAsAstudentOrACompany.addEventListener("click", () => {
    
     if(registerUsername.value.trim() === "")
@@ -114,19 +116,10 @@ const studentRegistration = (username, password) => {
         document.querySelector("#departChoice").style.display = "block";
 }
 
-const companyRegistration = (username, password) => {
-    console.log(username, password);
-}
-
 document.querySelector("#registerAsStudent").addEventListener("click", () => {
 
     document.getElementById('id02').style.display='block';
 
-});
-
-document.querySelector("#registerAsCompany").addEventListener("click", () => {
-
-    companyRegistration(registerUsername.value, registerPass.value);
 });
 
 studentForm.addEventListener("submit", (e) => {
@@ -134,4 +127,41 @@ studentForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     studentRegistration(registerUsername.value, registerPass.value);
+});
+
+
+//Company Registration
+const companyRegistration = (username, password) => {
+
+    let companyData = formToJSON(companyForm.elements);
+    
+    companyData.username = username;
+
+    companyData.password = password;
+    
+    document.querySelector("#loadingImageComp").style.display = "block";
+
+    console.log(companyData);
+
+    setTimeout(() => {
+
+        document.querySelector("#loadingImageComp").style.display = "none";
+        
+        document.querySelector("#registerCompSuccess").style.display = "block";
+        
+        setTimeout(() => location.reload(), 2000);
+
+    }, 3000);
+}
+
+document.querySelector("#registerAsCompany").addEventListener("click", () => {
+
+    document.getElementById('id04').style.display='block';
+});
+
+companyForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    companyRegistration(registerUsername.value, registerPass.value);
 });

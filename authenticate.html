@@ -276,6 +276,43 @@
 		</div>
 	  </div>
 
+		<!-- Registration Company Modal -->
+		<div class="w3-container">
+			<div id="id04" class="w3-modal">
+				<div class="w3-modal-content">
+				<div class="w3-container">
+					<span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<form class="login100-form validate-form" id="companyForm">
+	
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Lastname is required">
+						<span class="label-input100">Company name</span>
+						<input class="input100" type="text" name="companyName" id="company_name" placeholder="Enter company name" required>
+						<span class="focus-input100"></span>
+					</div>
+	
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="email" name="email" id="company_email" placeholder="Enter email" required>
+						<span class="focus-input100"></span>
+					</div>
+	
+					<br>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">
+							Sign up
+						</button>
+					</div>
+					<img id="loadingImageComp" src="images/loading.gif" style="display: none;">
+					<br><br><br><br>
+					<p style="display: none; color:#57b846;" id="registerCompSuccess">Your registration has completed!</p>
+				</form>
+				
+				</div>
+				</div>
+			</div>
+		</div>
+
 	
 	
 	<script src="js/authentication/authenticate.js" type="module"></script>

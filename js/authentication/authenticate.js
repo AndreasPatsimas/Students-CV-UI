@@ -71,7 +71,7 @@ loginForm.addEventListener("submit", (e) => {
 
         if(authenticated){
 
-            if(isStudent)
+            if(!isStudent)
                 location.replace("student.html");
 
             else
