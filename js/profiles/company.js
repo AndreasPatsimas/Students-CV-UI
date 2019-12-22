@@ -47,6 +47,11 @@ search.addEventListener("click", () => {
     settingsArea.style.display = "none";
 });
 
+// search operations
+
+// https://colorlib.com/wp/free-css3-html5-search-form-examples/
+// https://colorlib.com/wp/css3-table-templates/
+
 // settings operations
 
 //profile values
