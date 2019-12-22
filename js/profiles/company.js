@@ -11,7 +11,11 @@ const homeArea = document.querySelector("#homeArea"),
 
       settingsArea = document.querySelector("#settingsArea"),
 
-      deleteMyProfile = document.querySelector("#deleteMyProfile");
+      deleteMyProfile = document.querySelector("#deleteMyProfile"),
+
+      search = document.querySelector("#search_students"),
+
+      searchArea = document.querySelector("#searchArea");
 
 
 
@@ -21,13 +25,26 @@ home.addEventListener("click", () => {
     homeArea.style.display = "block";
 
     settingsArea.style.display = "none";
+
+    searchArea.style.display = "none";
 });
 
 settings.addEventListener("click", () => {
 
     homeArea.style.display = "none";
 
+    searchArea.style.display = "none";
+
     settingsArea.style.display = "block";
+});
+
+search.addEventListener("click", () => {
+
+    homeArea.style.display = "none";
+
+    searchArea.style.display = "block";
+
+    settingsArea.style.display = "none";
 });
 
 // settings operations
@@ -48,49 +65,35 @@ settingsForm.addEventListener("submit", (e) => {
 
     let settingsData = formToJSON(settingsForm.elements);
 
-    if(document.querySelector("#ckb1").checked === true)
-        settingsData.workExperience = true;
+    document.querySelector("#loadingIma").style.display = "block";
 
-    else
-        settingsData.workExperience = false;
+    console.log(settingsData);
 
-        if(settingsData.mobilePhone.trim() === "" || settingsData.mobilePhone.length == 10){
+    let isMailUnique = true;
+
+    if(isMailUnique){
+        
+        setTimeout(() => {
+
+            document.querySelector("#loadingIma").style.display = "none";
             
-            document.querySelector("#mobReq").style.display = "none";
-
-            document.querySelector("#loadingIma").style.display = "block";
-
-            console.log(settingsData);
-
-            let isMailUnique = true;
-
-            if(isMailUnique){
-                
-                setTimeout(() => {
-
-                    document.querySelector("#loadingIma").style.display = "none";
-                    
-                    document.querySelector("#mailSuccess").style.display = "block";
-                    
-                    setTimeout(() => location.reload(), 2000);
-
-                }, 3000);
-            }
+            document.querySelector("#mailSuccess").style.display = "block";
             
-            else{
-                setTimeout(() => {
+            setTimeout(() => location.reload(), 2000);
 
-                    document.querySelector("#loadingIma").style.display = "none";
-                    
-                    document.querySelector("#mailFail").style.display = "block";
+        }, 3000);
+    }
+    
+    else{
+        setTimeout(() => {
 
-                }, 3000);
-            }
+            document.querySelector("#loadingIma").style.display = "none";
             
-             
-        }
-        else
-            document.querySelector("#mobReq").style.display = "block";
+            document.querySelector("#mailFail").style.display = "block";
+
+        }, 3000);
+    }  
+        
 });
 
 deleteMyProfile.addEventListener("click", () => {
