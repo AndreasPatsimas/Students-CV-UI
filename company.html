@@ -15,6 +15,7 @@
         <link rel="stylesheet" type="text/css" href="css/util.css">
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/dob.css">
+        <link rel="stylesheet" type="text/css" href="css/combobox.css">
                 
     </head>
     <body>
@@ -83,40 +84,39 @@
                             
                             <div class="media-body">
                                 
-                                <!-- <form class="login100-form validate-form" id="settingsForm">
-                                        <div class=" m-b-26">												
-                                            <a href="#" style="color: red;" id="deleteMyProfile"><i class="lnr lnr-power-switch"></i> Delete My Profile</a>
-                                        </div>
-
-                                        <div class="wrap-input100 validate-input m-b-26" data-validate=" is required">
-                                            <span class="label-input100">Company Name</span>
-                                            <input class="input100" type="text" name="companyName" placeholder="Enter company name" required>
-                                            <span class="focus-input100"></span>
-                                        </div>
-                        
-                                        <div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
-                                                <span class="label-input100">Email</span>
-                                                <input class="input100" type="email" name="email" id="email" placeholder="Enter email" required>
-                                                <span class="focus-input100"></span>
-                                        </div>
-                            
-                                        <div class="wrap-input100 validate-input m-b-18" data-validate = "is required">
-                                            <span class="label-input100">Units</span>
-                                            <input class="input100" type="number" name="units" id="units" placeholder="Enter number of units you want to buy. Each unit costs 5€">
-                                            <span class="focus-input100"></span>
-                                        </div>
-                                            
-                        
-                                        <div class="container-login100-form-btn">
-                                            <button class="login100-form-btn" type="submit">
-                                                Submit
-                                            </button>
-                                        </div>
-                                        <img id="loadingIma" src="images/loading.gif" style="display: none;">
-                                        <br><br><br><br>
-                                        <p style="display: none; color:#57b846;" id="mailSuccess">Your settings have been saved.</p>
-                                        <p style="display: none; color:red;" id="mailFail">There is another user who has this email account.</p>
-                                    </form> -->
+                                <form class="login100-form validate-form" id="searchForm">
+                                    
+                                    <hr><hr>
+                                    <div id="company_combobox" class="custom-select" style="width:200px;">
+                                        <select name="department" required>
+                                            <option value="0">Select Department</option>
+                                            <option value="1">Department of Public Health</option>
+                                            <option value="2">Department of Management, Economics & Social Sciences</option>
+                                            <option value="3">Department of Food Sciences</option>
+                                            <option value="4">Department of Health and Welfare Sciences</option>
+                                            <option value="5">Department of Applied Arts and Culture</option>
+                                            <option value="6">Department of Engineering</option>
+                                        </select>
+                                        <p style="display: none; color:red;" id="departChoice">Department choice is required.</p>
+                                    </div>
+                                    <br><br><br>
+                                    
+                                    <div class="contact100-form-checkbox">
+                                        <input class="input-checkbox100" id="ckb3" type="checkbox" name="workExperience">
+                                        <label class="label-checkbox100" for="ckb3">
+                                            Work Experience
+                                        </label>
+                                    </div>					
+                                
+                                    <button class="login100-form-search-btn" id="search-btn" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                        
+                                    
+                                    <img id="loadingImage" src="images/loading.gif" style="display: none;">
+                                    <br><br><br><br>
+                                    <p style="display: none; color:#57b846;" id="registerSuccess">Your registration has completed!</p>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -180,6 +180,7 @@
              </section>
 
             <script src="js/profiles/company.js" type="module"></script>
+            <script src="js/components/combobox.js" type="module"></script>
 
     </body>
 </html>

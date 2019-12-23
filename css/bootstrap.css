@@ -2129,7 +2129,7 @@ textarea.form-control {
     border-radius: .25rem
 }
 
-.custom-select.is-valid,
+/* .custom-select.is-valid,
 .form-control.is-valid,
 .was-validated .custom-select:valid,
 .was-validated .form-control:valid {
@@ -2142,9 +2142,9 @@ textarea.form-control {
 .was-validated .form-control:valid:focus {
     border-color: #28a745;
     box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .25)
-}
+} */
 
-.custom-select.is-valid~.valid-feedback,
+/* .custom-select.is-valid~.valid-feedback,
 .custom-select.is-valid~.valid-tooltip,
 .form-control.is-valid~.valid-feedback,
 .form-control.is-valid~.valid-tooltip,
@@ -2153,7 +2153,7 @@ textarea.form-control {
 .was-validated .form-control:valid~.valid-feedback,
 .was-validated .form-control:valid~.valid-tooltip {
     display: block
-}
+} */
 
 .form-control-file.is-valid~.valid-feedback,
 .form-control-file.is-valid~.valid-tooltip,
@@ -2246,7 +2246,7 @@ textarea.form-control {
     border-radius: .25rem
 }
 
-.custom-select.is-invalid,
+/* .custom-select.is-invalid,
 .form-control.is-invalid,
 .was-validated .custom-select:invalid,
 .was-validated .form-control:invalid {
@@ -2270,7 +2270,7 @@ textarea.form-control {
 .was-validated .form-control:invalid~.invalid-feedback,
 .was-validated .form-control:invalid~.invalid-tooltip {
     display: block
-}
+} */
 
 .form-control-file.is-invalid~.invalid-feedback,
 .form-control-file.is-invalid~.invalid-tooltip,
@@ -2382,10 +2382,10 @@ textarea.form-control {
     .form-inline .form-control-plaintext {
         display: inline-block
     }
-    .form-inline .custom-select,
+    /* .form-inline .custom-select,
     .form-inline .input-group {
         width: auto
-    }
+    } */
     .form-inline .form-check {
         display: -ms-flexbox;
         display: flex;
@@ -3524,7 +3524,7 @@ input[type=submit].btn-block {
 }
 
 .input-group>.custom-file,
-.input-group>.custom-select,
+/* .input-group>.custom-select, */
 .input-group>.form-control {
     position: relative;
     -ms-flex: 1 1 auto;
@@ -3534,18 +3534,18 @@ input[type=submit].btn-block {
 }
 
 .input-group>.custom-file+.custom-file,
-.input-group>.custom-file+.custom-select,
+/* .input-group>.custom-file+.custom-select,
 .input-group>.custom-file+.form-control,
 .input-group>.custom-select+.custom-file,
 .input-group>.custom-select+.custom-select,
 .input-group>.custom-select+.form-control,
 .input-group>.form-control+.custom-file,
-.input-group>.form-control+.custom-select,
+.input-group>.form-control+.custom-select, */
 .input-group>.form-control+.form-control {
     margin-left: -1px
 }
 
-.input-group>.custom-file .custom-file-input:focus~.custom-file-label,
+/* .input-group>.custom-file .custom-file-input:focus~.custom-file-label,
 .input-group>.custom-select:focus,
 .input-group>.form-control:focus {
     z-index: 3
@@ -3565,7 +3565,7 @@ input[type=submit].btn-block {
 .input-group>.form-control:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0
-}
+} */
 
 .input-group>.custom-file {
     display: -ms-flexbox;
@@ -3802,7 +3802,7 @@ input[type=submit].btn-block {
     background-color: rgba(0, 123, 255, .5)
 }
 
-.custom-select {
+/* .custom-select {
     display: inline-block;
     width: 100%;
     height: calc(2.25rem + 2px);
@@ -3817,9 +3817,9 @@ input[type=submit].btn-block {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none
-}
+} */
 
-.custom-select:focus {
+/* .custom-select:focus {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 .2rem rgba(128, 189, 255, .5)
@@ -3844,9 +3844,9 @@ input[type=submit].btn-block {
 
 .custom-select::-ms-expand {
     opacity: 0
-}
+} */
 
-.custom-select-sm {
+/* .custom-select-sm {
     height: calc(1.8125rem + 2px);
     padding-top: .375rem;
     padding-bottom: .375rem;
@@ -3858,7 +3858,7 @@ input[type=submit].btn-block {
     padding-top: .375rem;
     padding-bottom: .375rem;
     font-size: 125%
-}
+} */
 
 .custom-file {
     position: relative;
@@ -4062,19 +4062,19 @@ input[type=submit].btn-block {
     border-radius: 1rem
 }
 
-.custom-control-label::before,
+/* .custom-control-label::before,
 .custom-file-label,
 .custom-select {
     transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
-}
+} */
 
-@media screen and (prefers-reduced-motion:reduce) {
+/* @media screen and (prefers-reduced-motion:reduce) {
     .custom-control-label::before,
     .custom-file-label,
     .custom-select {
         transition: none
     }
-}
+} */
 
 .nav {
     display: -ms-flexbox;
