@@ -72,3 +72,10 @@
     margin-left: 50px;
     margin-right: 0px;
   }
+
+  #loadingImage{
+    right: auto;
+    left: 0;
+    margin-left: 300px;
+    margin-right: 0px;
+  }

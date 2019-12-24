@@ -15,6 +15,8 @@ const homeArea = document.querySelector("#homeArea"),
 
       search = document.querySelector("#search_students"),
 
+      searchForm = document.querySelector("#search_form"),
+
       searchArea = document.querySelector("#searchArea");
 
 
@@ -49,7 +51,39 @@ search.addEventListener("click", () => {
 
 // search operations
 
-// https://colorlib.com/wp/free-css3-html5-search-form-examples/
+searchForm.addEventListener("submit", (e) => {
+    
+    e.preventDefault();
+
+    let searchData = formToJSON(searchForm.elements);
+
+    if(document.querySelector("#ckb3").checked === true)
+        searchData.workExperience = true;
+
+    else
+        searchData.workExperience = false;
+
+    if(searchData.department != 0){
+    
+        document.querySelector("#departChoice").style.display = "none";
+
+        document.querySelector("#loadingImage").style.display = "block";
+
+        setTimeout(() => {
+
+            document.querySelector("#loadingImage").style.display = "none";
+            
+            console.log(searchData);
+
+        }, 3000);               
+
+    }
+    
+    else
+        document.querySelector("#departChoice").style.display = "block";
+
+});
+
 // https://colorlib.com/wp/css3-table-templates/
 
 // settings operations
