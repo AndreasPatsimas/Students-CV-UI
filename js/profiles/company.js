@@ -51,6 +51,8 @@ search.addEventListener("click", () => {
 
 // search operations
 
+//search students by department and work experience
+
 searchForm.addEventListener("submit", (e) => {
     
     e.preventDefault();
@@ -86,7 +88,54 @@ searchForm.addEventListener("submit", (e) => {
 
 });
 
-// https://colorlib.com/wp/css3-table-templates/
+//search_table
+
+const rowClickHandler = (row) => {
+
+    return () => {
+
+        let cell = row.querySelectorAll("td")[1];
+
+        console.log(cell);
+
+        let id = cell.innerHTML;
+
+        alert("id:" + id);
+    }
+}
+
+const rowHandler = () => {
+    
+    let table = document.querySelector("#tableId");
+
+    let rows = table.querySelectorAll("tr");
+
+    rows.forEach(row => {
+        
+        row.onclick = rowClickHandler(row);
+    });
+
+}
+
+rowHandler();
+
+
+// function addRowHandlers() {
+//     var table = document.getElementById("tableId");
+//     var rows = table.getElementsByTagName("tr");
+//     for (i = 0; i < rows.length; i++) {
+//       var currentRow = table.rows[i];
+//       var createClickHandler = function(row) {
+//         return function() {
+//           var cell = row.getElementsByTagName("td")[0];
+//           var id = cell.innerHTML;
+//           alert("id:" + id);
+//         };
+//       };
+//       currentRow.onclick = createClickHandler(currentRow);
+//     }
+//   }
+
 
 // settings operations
 
