@@ -16,6 +16,12 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/dob.css">
         <link rel="stylesheet" type="text/css" href="css/combobox.css">
+        <link rel="stylesheet" type="text/css" href="css/company.css">
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> <!--this is for modals-->
+
+        <link rel="stylesheet" href="css/paginate.css">
+        <link rel="stylesheet" href="css/ligne.css">
                 
     </head>
     <body>
@@ -85,8 +91,7 @@
                             <div class="media-body">
                                 
                                 <form class="login100-form validate-form" id="search_form">
-                                    
-                                    <hr><hr>
+
                                     <div id="company_combobox" class="custom-select" style="width:200px;">
                                         <select name="department" required>
                                             <option value="0">Select Department</option>
@@ -114,6 +119,77 @@
                                                          
                                     <img id="loadingImage" src="images/loading.gif" style="display: none;">
                                 </form>
+
+                                	<!-- Modal Student Tables -->
+                                <div class="w3-container">
+                                    <div id="id01" class="w3-modal">
+                                    <div class="w3-modal-content">
+                                        <div class="w3-container">
+                                        <span onclick="document.getElementById('id01').style.display='none';" class="w3-button w3-display-topright">&times;</span>
+                                        <div class="panel">
+                                            <div class="body">
+                                                <div class="input-group">
+                                                    <label for="searchBox">Filtrar</label>
+                                                    <input type="search" id="searchBox" placeholder="Filter...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="myTable table hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>USER ID</th>
+                                                <th>ID</th>
+                                                <th>TITTLE</th>
+                                                <th>COMPLETED</th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>delectus aut autem</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>quis ut nam facilis et officia qui</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>3</td>
+                                                <td>fugiat veniam minus</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>4</td>
+                                                <td>et porro tempora</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>5</td>
+                                                <td>laboriosam mollitia et enim quasi adipisci quia provident illum</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>6</td>
+                                                <td>qui ullam ratione quibusdam voluptatem quia omnis</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>7</td>
+                                                <td>illo expedita consequatur quia in</td>
+                                                <td></td>
+                                            </tr>                                   
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,6 +254,21 @@
 
             <script src="js/profiles/company.js" type="module"></script>
             <script src="js/components/combobox.js" type="module"></script>
+            <script type="text/javascript" src="js/components/paginate.js"></script>
+            <script>
+
+                let options = {
+                    numberPerPage:5, //Ποσό δεδομένων ανά σελίδα
+                    goBar:true, //Γραμμή όπου μπορείτε να πληκτρολογήσετε τον αριθμό της σελίδας στην οποία θέλετε να μεταβείτε
+                    pageCounter:true, //Ο μετρητής σελίδας, στον οποίο είστε ένας από εσάς, πόσες σελίδες
+                };
+
+                let filterOptions = {
+                    el:'#searchBox' //Το πλαίσιο κειμένου για φιλτράρισμα, μπορεί να είναι μια class ή ένα id
+                };
+
+                paginate.init('.myTable',options,filterOptions);
+            </script>
 
     </body>
 </html>

@@ -75,6 +75,8 @@ searchForm.addEventListener("submit", (e) => {
             
             console.log(searchData);
 
+            document.getElementById('id01').style.display='block';
+
         }, 3000);               
 
     }
