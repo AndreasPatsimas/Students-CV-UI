@@ -167,7 +167,7 @@ settingsForm.addEventListener("submit", (e) => {
                     
                     document.querySelector("#mailSuccess").style.display = "block";
                     
-                    setTimeout(() => location.reload(), 2000);
+                    //setTimeout(() => location.reload(), 2000);
 
                 }, 3000);
             }
