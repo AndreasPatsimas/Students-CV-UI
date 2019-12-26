@@ -17,7 +17,9 @@ const homeArea = document.querySelector("#homeArea"),
 
       searchForm = document.querySelector("#search_form"),
 
-      searchArea = document.querySelector("#searchArea");
+      searchArea = document.querySelector("#searchArea"),
+      
+      table = document.querySelector("#tableId");
 
 
 
@@ -90,51 +92,15 @@ searchForm.addEventListener("submit", (e) => {
 
 //search_table
 
-const rowClickHandler = (row) => {
-
-    return () => {
-
-        let cell = row.querySelectorAll("td")[1];
-
-        console.log(cell);
-
-        let id = cell.innerHTML;
-
-        alert("id:" + id);
-    }
-}
-
-const rowHandler = () => {
+table.onclick = ("click", "tr", (ap) => {
     
-    let table = document.querySelector("#tableId");
+    let clickedRow = ap.path[1];
 
-    let rows = table.querySelectorAll("tr");
+    if(clickedRow.id != "th"){
+        console.log(clickedRow);
+    }
+})
 
-    rows.forEach(row => {
-        
-        row.onclick = rowClickHandler(row);
-    });
-
-}
-
-rowHandler();
-
-
-// function addRowHandlers() {
-//     var table = document.getElementById("tableId");
-//     var rows = table.getElementsByTagName("tr");
-//     for (i = 0; i < rows.length; i++) {
-//       var currentRow = table.rows[i];
-//       var createClickHandler = function(row) {
-//         return function() {
-//           var cell = row.getElementsByTagName("td")[0];
-//           var id = cell.innerHTML;
-//           alert("id:" + id);
-//         };
-//       };
-//       currentRow.onclick = createClickHandler(currentRow);
-//     }
-//   }
 
 
 // settings operations

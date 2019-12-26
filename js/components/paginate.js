@@ -5,10 +5,6 @@
     function lignePaginate(){
         var _lignePaginate = {};
 
-        /**
-         * Inicializa todas las configuracion y validaciones antes de ejecutar
-         * la paginacion y el filtro (en caso de ser asignado)
-         **/
         _lignePaginate.init = function(el, options = {numberPerPage: 10,goBar:false,pageCounter:true},filter = [{el: null}]
         ){
             setTableEl(el);
@@ -20,7 +16,7 @@
             launchPaginate();
         }
         /**
-         * Configuraciones de la paginacion
+         * Config
          **/
         var settings = {
             el:null,
@@ -162,20 +158,12 @@
             document.querySelector('.paginate_controls').style.visibility = 'unset';
         }
 
-        // (numberOfPage): número de páginas, (currentPage): página actual, la página seleccionada ..
         var pageButtons = function(numberOfPage,currentPage) {
-            /** Estas variables deshabilitarán el botón "Prev" en la
-             * primera página y el botón "siguiente" en la ultima
-             **/
+            
             let	prevDisabled = (currentPage == 1)?"disabled":"";
             let nextDisabled = (currentPage == numberOfPage)?"disabled":"";
 
-            /** Este (botones) creara todos los botones necesarios
-             * creará cada botón y establece el atributo onclick
-             * a la función "order" con un número especial (currentPage)
-             *
-             * Tambien se encarga de agregar el boton de "gotopage" y "pagecounter"
-             **/
+            
             let buttons = "<input type='button' value='← prev' class='paginate_control_prev' onclick='paginate.sort("+(currentPage - 1)+")' "+prevDisabled+">";
             let buttonNumberOfPage = "<input type='button' value='" + currentPage + ' - ' + numberOfPage + "' disabled>";
 
@@ -198,16 +186,7 @@
 
             return buttons;
         }
-        /**
-         * Cuando el numero de paginas supera las 10 se crea un mecanismo que oculta
-         * todas las paginas con numero superior a 4 y inferior a las ultima pagina
-         *
-         * Cuando se navega por la paginación solo se mostrara el numero actual
-         * Inicial
-         *      <- prev  (1)    2   3   4   ... 41 next ->
-         * Después
-         *      <- prev  1    2   3   4  (22)   ... 41 next ->
-         **/
+       
         var paginationMoreThatTenPage = function(iterator,numberOfPage){
 
             let referenceForTheLast = numberOfPage - 1;
@@ -242,13 +221,13 @@
             table = settings.table;
             numberPerPage = settings.numberPerPage;
             let rowCount = table.rows.length;
-            // obtener el nombre de la etiqueta de la primera celda (en la primera fila)
+
             let firstRow = table.rows[0].firstElementChild.tagName;
-            // Verificando si la tabla tiene encaebzado
+
             let hasHead = (firstRow === "TH");
-            // contadores de bucles, para comenzar a contar desde las filas [1] (2da fila) si la primera fila tiene una etiqueta de encabezado
+
             let $i,$ii,$j = (hasHead)?1:0;
-            // contiene la primera fila si tiene un (<th>) y nada si (<td>)
+            
             th = (hasHead?table.rows[(0)].outerHTML:"");
             pageCount = Math.ceil(rowCount / numberPerPage);
             settings.numberOfPages = pageCount;
@@ -257,9 +236,7 @@
                 settings.hasPagination = true;
                 for ($i = $j,$ii = 0; $i < rowCount; $i++, $ii++)
                     tr[$ii] = table.rows[$i].outerHTML;
-                // Contenedor de los botones "paginate_controls"
                 table.insertAdjacentHTML("afterend","<div id='buttons' class='paginate paginate_controls'></div");
-                // Inicializando la tabla en la pagina 1
                 _lignePaginate.sort(1);
             }else{
                 settings.hasPagination = false;
@@ -267,10 +244,7 @@
         };
 
         _lignePaginate.sort = function(selectedPageNumber) {
-            /** crea (filas) una variable para contener el grupo de filas
-             * para ser mostrado en la página seleccionada,
-             * startPoint: la primera fila en cada página, Do The Math
-             **/
+            
             let rows = th,startPoint = ((settings.numberPerPage * selectedPageNumber)-settings.numberPerPage);
             for (let $i = startPoint; $i < (startPoint+settings.numberPerPage) && $i < tr.length; $i++)
                 rows += tr[$i];
@@ -278,18 +252,11 @@
             table.innerHTML = rows;
             document.getElementById("buttons").innerHTML = pageButtons(pageCount,selectedPageNumber);
             document.getElementById("id"+selectedPageNumber).classList.add('active');
-            /**
-             * Esto se utiliza para mostrar el numero de la pagina en la que se encuentra
-             * generalmente se usa cuando las paginas son mayor a 10
-             **/
+            
             document.getElementById("id"+selectedPageNumber).style.display = 'unset';
         }
 
-        /**
-         * Esto se encarga de filtrar la informacion segun una caja de texto
-         * tambien llama al metodo que oculta la parte de los botones de la
-         * paginacion
-         **/
+        
         _lignePaginate.filter = function() {
             if(settings.hasPagination){
                 setNumberPerPage(9999);
