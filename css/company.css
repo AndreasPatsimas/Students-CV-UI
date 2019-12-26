@@ -23,3 +23,14 @@
     height: 50px;
     width: 50px;
   }
+
+  #student_profile{
+    right: auto;
+    left: 0;
+    margin-left: 100px;
+    margin-right: 0px;
+  }
+
+  .handy{
+    cursor: pointer;
+  }

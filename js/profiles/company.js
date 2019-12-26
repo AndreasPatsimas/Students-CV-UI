@@ -98,6 +98,7 @@ table.onclick = ("click", "tr", (ap) => {
 
     if(clickedRow.id != "th"){
         console.log(clickedRow);
+        document.getElementById('id02').style.display='block';
     }
 })
 
