@@ -1,4 +1,7 @@
 import{ formToJSON } from '../utils/bind.js';
+import{ MyHTTP } from '../utils/httpRequest.js';
+
+const http = new MyHTTP;
 
 const   forwardToRegisterAsAstudentOrACompany = document.querySelector("#forwardToRegisterAsAstudentOrACompany"),
 
@@ -97,15 +100,35 @@ const studentRegistration = (username, password) => {
 
             console.log(studentData);
 
-            setTimeout(() => {
-
-                document.querySelector("#loadingImage").style.display = "none";
+            http.post("http://localhost:8080/pada/register/student", studentData)
+            .then(response => {
                 
-                document.querySelector("#registerSuccess").style.display = "block";
-                
-                setTimeout(() => location.reload(), 2000);
+                console.log(response);
 
-            }, 3000);
+                document.querySelector("#registerFail").style.display = "none";
+
+                setTimeout(() => {
+
+                    if(response.status === 201){
+
+                        document.querySelector("#loadingImage").style.display = "none";
+                        
+                        document.querySelector("#registerSuccess").style.display = "block";
+                        
+                        setTimeout(() => location.reload(), 2000);
+
+                    }
+                    else{
+                        
+                        document.querySelector("#loadingImage").style.display = "none";
+                    
+                        document.querySelector("#registerFail").style.display = "block";
+                    }
+    
+                }, 3000);
+            
+            })
+            .catch(error => console.log(error))
              
         }
         else
