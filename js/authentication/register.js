@@ -166,15 +166,35 @@ const companyRegistration = (username, password) => {
 
     console.log(companyData);
 
-    setTimeout(() => {
-
-        document.querySelector("#loadingImageComp").style.display = "none";
+    http.post("http://localhost:8080/pada/register/company", companyData)
+    .then(response => {
         
-        document.querySelector("#registerCompSuccess").style.display = "block";
-        
-        setTimeout(() => location.reload(), 2000);
+        console.log(response);
 
-    }, 3000);
+        document.querySelector("#registerCompFail").style.display = "none";
+
+        setTimeout(() => {
+
+            if(response.status === 201){
+
+                document.querySelector("#loadingImageComp").style.display = "none";
+        
+                document.querySelector("#registerCompSuccess").style.display = "block";
+                
+                setTimeout(() => location.reload(), 2000);
+
+            }
+            else{
+                
+                document.querySelector("#loadingImageComp").style.display = "none";
+            
+                document.querySelector("#registerCompFail").style.display = "block";
+            }
+
+        }, 3000);
+    
+    })
+    .catch(error => console.log(error))
 }
 
 document.querySelector("#registerAsCompany").addEventListener("click", () => {
