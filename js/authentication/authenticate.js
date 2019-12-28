@@ -12,7 +12,9 @@ const loginForm = document.querySelector("#loginForm"),
 
       switchToRegisterLink = document.querySelector("#switchToRegisterLink"),
       
-      forgotPassForm = document.querySelector("#forgotPassForm");
+      forgotPassForm = document.querySelector("#forgotPassForm"),
+      
+      remember = document.querySelector("#ckb1");
 
 //Register Form
 const registerForm = document.querySelector("#registerForm"),
@@ -62,16 +64,10 @@ loginForm.addEventListener("submit", (e) => {
 
     document.querySelector("#loadingImag").style.display = "block";
 
-    console.log(authenticationData);
-
-    let authenticated = true;
-
-    let isStudent = true;
-
     http.post("http://localhost:8080/pada/authenticate", authenticationData)
     .then(response => {
         
-        console.log(response);
+        //console.log(response);
         
         document.querySelector("#registerFail").style.display = "none";
 
@@ -83,17 +79,30 @@ loginForm.addEventListener("submit", (e) => {
     
             if(response.authenticationStatus === "AUTHENTICATION_SUCCEEDED"){
 
-                localStorage.setItem("jwt", response.jwt);
+                if(ckb1.checked){
+                    
+                    localStorage.setItem("jwt", response.jwt);
 
-                localStorage.setItem("username", response.username);
+                    localStorage.setItem("username", response.username);
+                }
+                else{
+                    
+                    sessionStorage.setItem("jwt", response.jwt);
+
+                    sessionStorage.setItem("username", response.username);
+
+                    localStorage.removeItem("jwt");
+
+                    localStorage.removeItem("username");
+                }
     
                 if(response.authorities[0].authority === "ROLE_STUDENT")
-                    console.log("student");
-                    //location.replace("student.html");
+                    //console.log("student");
+                    location.replace("student.html");
     
                 else
-                    console.log("company");
-                    //location.replace("company.html")
+                    //console.log("company");
+                    location.replace("company.html")
             }
             
             else
