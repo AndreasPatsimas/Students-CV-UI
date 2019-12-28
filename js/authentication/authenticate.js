@@ -82,6 +82,10 @@ loginForm.addEventListener("submit", (e) => {
             document.querySelector("#loginbtn").style.display = "block";
     
             if(response.authenticationStatus === "AUTHENTICATION_SUCCEEDED"){
+
+                localStorage.setItem("jwt", response.jwt);
+
+                localStorage.setItem("username", response.username);
     
                 if(response.authorities[0].authority === "ROLE_STUDENT")
                     console.log("student");
