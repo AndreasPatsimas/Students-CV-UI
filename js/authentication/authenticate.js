@@ -1,4 +1,7 @@
 import{ formToJSON } from '../utils/bind.js';
+import{ MyHTTP } from '../utils/httpRequest.js';
+
+const http = new MyHTTP;
 
 const title = document.querySelector("#title"),
 
@@ -45,6 +48,8 @@ loginForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
+    document.querySelector("#authFail").style.display = "none";
+
     let authenticationData = formToJSON(loginForm.elements);
 
     if(document.querySelector("#ckb1").checked === true)
@@ -63,25 +68,38 @@ loginForm.addEventListener("submit", (e) => {
 
     let isStudent = true;
 
-    setTimeout(() => {
-
-        document.querySelector("#loadingImag").style.display = "none";
+    http.post("http://localhost:8080/pada/authenticate", authenticationData)
+    .then(response => {
         
-        document.querySelector("#loginbtn").style.display = "block";
+        console.log(response);
+        
+        document.querySelector("#registerFail").style.display = "none";
 
-        if(authenticated){
+        setTimeout(() => {
 
-            if(!isStudent)
-                location.replace("student.html");
-
+            document.querySelector("#loadingImag").style.display = "none";
+            
+            document.querySelector("#loginbtn").style.display = "block";
+    
+            if(response.authenticationStatus === "AUTHENTICATION_SUCCEEDED"){
+    
+                if(response.authorities[0].authority === "ROLE_STUDENT")
+                    console.log("student");
+                    //location.replace("student.html");
+    
+                else
+                    console.log("company");
+                    //location.replace("company.html")
+            }
+            
             else
-                location.replace("company.html")
-        }
-        
-        else
-            document.querySelector("#authFail").style.display = "block";
+                document.querySelector("#authFail").style.display = "block";
+    
+        }, 3000);
+    
+    })
+    .catch(error => console.log(error))
 
-    }, 3000);
 });
 
 //Forgot Password
@@ -94,25 +112,38 @@ forgotPassForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
+    document.querySelector("#mailSuccess").style.display = "none";
+
+    document.querySelector("#mailFail").style.display = "none";
+
     let data = formToJSON(forgotPassForm.elements);
 
     document.querySelector("#loadingIma").style.display = "block";
 
-    console.log(data);
+    //console.log(data);
 
-    let hasSentEmail = true;
-
-    setTimeout(() => {
-
-        document.querySelector("#loadingIma").style.display = "none";
-
-        if(hasSentEmail){
-
-            document.querySelector("#mailSuccess").style.display = "block";
-        }
+    http.post("http://localhost:8080/pada/authenticate/forgotPassword", data)
+    .then(response => {
         
-        else
-            document.querySelector("#mailFail").style.display = "block";
+        //console.log(response);
+        
+        document.querySelector("#registerFail").style.display = "none";
 
-    }, 3000);
+        setTimeout(() => {
+
+            document.querySelector("#loadingIma").style.display = "none";
+    
+            if(response.forgotPasswordStatus === "USERNAME_VERIFIED"){
+    
+                document.querySelector("#mailSuccess").style.display = "block";
+            }
+            
+            else
+                document.querySelector("#mailFail").style.display = "block";
+    
+        }, 3000);
+    
+    })
+    .catch(error => console.log(error))
+
 });

@@ -24,7 +24,7 @@ export class MyHTTP {
         body: JSON.stringify(data)
       });
   
-      const resData = await response;
+      const resData = await response.json();
       return resData;
      
     }

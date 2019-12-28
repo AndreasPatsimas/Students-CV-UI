@@ -98,7 +98,7 @@ const studentRegistration = (username, password) => {
 
             document.querySelector("#loadingImage").style.display = "block";
 
-            console.log(studentData);
+            //console.log(studentData);
 
             http.post("http://localhost:8080/pada/register/student", studentData)
             .then(response => {
@@ -109,7 +109,7 @@ const studentRegistration = (username, password) => {
 
                 setTimeout(() => {
 
-                    if(response.status === 201){
+                    if(response === "CREATED"){
 
                         document.querySelector("#loadingImage").style.display = "none";
                         
@@ -164,7 +164,7 @@ const companyRegistration = (username, password) => {
     
     document.querySelector("#loadingImageComp").style.display = "block";
 
-    console.log(companyData);
+    //console.log(companyData);
 
     http.post("http://localhost:8080/pada/register/company", companyData)
     .then(response => {
@@ -175,7 +175,7 @@ const companyRegistration = (username, password) => {
 
         setTimeout(() => {
 
-            if(response.status === 201){
+            if(response === "CREATED"){
 
                 document.querySelector("#loadingImageComp").style.display = "none";
         
