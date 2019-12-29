@@ -11,6 +11,10 @@ const homeArea = document.querySelector("#homeArea"),
 
       settingsArea = document.querySelector("#settingsArea"),
 
+      changePasswordLink = document.querySelector("#change_password"),
+
+      changePasswordForm = document.querySelector("#changePasswordForm"),
+
       deleteMyProfile = document.querySelector("#deleteMyProfile"),
       
       uploadCv = document.querySelector("#upload"),
@@ -197,3 +201,31 @@ deleteMyProfile.addEventListener("click", () => {
     else
         console.log("No.")
 });
+
+// change password
+//console.log(changePasswordLink);
+changePasswordLink.addEventListener("click", () => {
+
+    document.querySelector('#id04').style.display='block';
+});
+document.querySelector("#username").value = "sotos";
+changePasswordForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    let data = formToJSON(changePasswordForm.elements);
+
+    if(data.newPassword === data.repeatPass){
+
+        document.querySelector('#diffPassw').style.display='none';
+
+        delete data.repeatPass;
+
+        document.querySelector("#loadingImag").style.display = "block";
+
+        console.log(data);
+    }
+    else
+        document.querySelector('#diffPassw').style.display='block';
+
+})
