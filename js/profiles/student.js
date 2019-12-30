@@ -1,4 +1,28 @@
 import{ formToJSON } from '../utils/bind.js';
+import{ MyHTTP } from '../utils/httpRequest.js';
+
+const http = new MyHTTP;
+
+//get storage
+let username;
+
+let jwt;
+
+if(localStorage.getItem("username") == null && sessionStorage.getItem("username") == null)
+    location.replace("authenticate.html");
+
+else if(localStorage.getItem("username") != null){
+
+    username = localStorage.getItem("username");
+
+    jwt = localStorage.getItem("jwt");
+}
+else{
+
+    username = sessionStorage.getItem("username");
+
+    jwt = sessionStorage.getItem("jwt")
+}
 
 //constant fields
 const homeArea = document.querySelector("#homeArea"),
@@ -43,6 +67,11 @@ settings.addEventListener("click", () => {
 });
 
 //profile values
+//console.log(jwt);
+http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
+.then(response => console.log(response))
+.catch(error => console.log(error) /*location.replace("authenticate.html")*/);
+
 document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg")
 
 
