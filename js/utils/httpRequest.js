@@ -4,24 +4,15 @@ export class MyHTTP {
     
     async get(url, jwt) {
       console.log('Tasos ' + jwt);
-      //let token = JSON.parse(localStorage.getItem('jwt'));
       const h = new Headers();
-      //h.append('Accept', 'application/json');
-      //h.append('Authorization', `Tasos ${jwt}`)
       const response = await fetch(url, {
         method: 'GET',
-        //mode: 'cors',
-        //credentials: 'include',
         headers: 
          {
-          //Accept: 'application/json',
           'Content-type': 'application/json',
           'Authorization': `Tasos ${jwt}`,
-          //'Access-Control-Allow-Origin':'*',
-          //'Access-Control-Allow-Headers': 'Authorization'
         }
       });
-      //response.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-type');
       const resData = await response.json();
       return resData;
     }
