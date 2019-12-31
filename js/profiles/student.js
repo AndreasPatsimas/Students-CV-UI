@@ -1,5 +1,6 @@
 import{ formToJSON } from '../utils/bind.js';
 import{ MyHTTP } from '../utils/httpRequest.js';
+import{ getDepartment } from '../utils/department.js';
 
 const http = new MyHTTP;
 
@@ -69,32 +70,65 @@ settings.addEventListener("click", () => {
 //profile values
 //console.log(jwt);
 http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
-.then(response => console.log(response))
+.then(student => {
+    console.log(student);
+
+    if(student.imagePath != null)
+        document.querySelectorAll(".profileImage").forEach(image => image.src = `images/ students/${username}/${student.imagePath}`);
+    else
+        document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg");
+
+    if(student.cv !=null){
+        downloadCv.style.display = "block";
+
+        uploadCv.textContent = "CHANGE MY CV";
+
+        if(localStorage.getItem("username") != null)
+            localStorage.setItem("cv", `${student.cv.fileName}`)
+        else
+            sessionStorage.setItem("cv", `${student.cv.fileName}`);
+    }
+    else{
+        downloadCv.style.display = "none";
+
+        uploadCv.textContent = "UPLOAD CV";
+    }
+
+    document.getElementById("fullname").textContent = `${student.firstname} ${student.lastname}`;
+
+    if(student.description != null)
+        document.getElementById("desc").textContent = `${student.description}`;
+    
+    document.getElementById("dob").textContent = `${student.dateOfbirth}`;
+
+    document.getElementById("mob").textContent = `${student.mobilePhone}`;
+
+    document.getElementById("mail").textContent = `${student.email}`;
+
+    if(student.workExperience === true){
+        
+        document.getElementById("nonWorkExp").style.display = "none";
+
+        document.getElementById("workExp").style.display = "";
+
+        document.querySelector("#ckb1").checked = true;
+    }
+    else{
+        
+        document.getElementById("nonWorkExp").style.display = "";
+
+        document.getElementById("workExp").style.display = "none";
+
+        document.querySelector("#ckb1").checked = false;
+    }
+
+    document.getElementById("depart").textContent = `${getDepartment[student.department]}`;
+
+})
 .catch(error => console.log(error) /*location.replace("authenticate.html")*/);
 
-document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg")
-
-
-//document.querySelector("#ckb1").checked = true;
-//document.querySelector("#ckb1").checked = false;
-
-//document.querySelector("#dob").value = "2014-02-09";
 
 //cv operations
-let isCvUploaded = true;
-
-if(isCvUploaded){
-
-    downloadCv.style.display = "block";
-
-    uploadCv.textContent = "CHANGE MY CV";
-}
-else{
-
-    downloadCv.style.display = "none";
-
-    uploadCv.textContent = "UPLOAD CV";
-}
 
 //////////////////
 uploadCv.addEventListener("click", () => {
@@ -110,12 +144,16 @@ const upload = (file) => {
     formData.append('file', file);
 
     setTimeout(() => {
-        fetch('http://localhost:8080/files/uploadFile', { 
+        fetch(`http://localhost:8080/pada/student/uploadFile/${username}`, { 
             method: 'POST',
+            headers: 
+            {
+            'Authorization': `Tasos ${jwt}`,
+            },
             body: formData 
         })
         .then(
-        response => response.json() 
+        response => response 
         )
         .then((data)=> {
         
@@ -145,14 +183,26 @@ uploadCvInput.addEventListener('change', onSelectFile, false);
 ////////////////
 
 downloadCv.addEventListener("click", () => {
+
+    let fileName;
+
+    if(localStorage.getItem("username") != null)
+        fileName = localStorage.getItem("cv");
+    else
+        fileName = sessionStorage.getItem("cv");
     
-    fetch("http://localhost:8080/files/downloadFile/LICENSE.txt", {
+    fetch(`http://localhost:8080/pada/student/downloadFile/${username}/${fileName}`, {
         method: 'GET',
+        headers: 
+        {
+        //'Content-type': 'application/json',
+        'Authorization': `Tasos ${jwt}`,
+        }
     })
       .then(res => {
         let blob = new Blob([res]);
         downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = "LICENSE.txt";
+        downloadLink.download = fileName;
         downloadLink.click();
         
         })
