@@ -68,7 +68,7 @@ settings.addEventListener("click", () => {
 });
 
 //profile values
-//console.log(jwt);
+console.log(jwt);
 http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
 .then(student => {
     console.log(student);
@@ -153,7 +153,7 @@ const upload = (file) => {
             body: formData 
         })
         .then(
-        response => response 
+            response => response.json()
         )
         .then((data)=> {
         
@@ -161,11 +161,18 @@ const upload = (file) => {
     
             document.querySelector("#loadingImage").style.display = "none";
     
-            document.querySelector("#uploadSuccess").style.display = "block";
+            if(data.status === 500)
+                document.querySelector("#uploadFail").style.display = "block";
+            else
+                document.querySelector("#uploadSuccess").style.display = "block";
     
             setTimeout(() => {
     
             document.querySelector("#uploadSuccess").style.display = "none";
+
+            document.querySelector("#uploadFail").style.display = "none";
+
+            location.reload();
     
             }, 5000);
         })
@@ -190,26 +197,24 @@ downloadCv.addEventListener("click", () => {
         fileName = localStorage.getItem("cv");
     else
         fileName = sessionStorage.getItem("cv");
-    
     fetch(`http://localhost:8080/pada/student/downloadFile/${username}/${fileName}`, {
         method: 'GET',
         headers: 
         {
-        //'Content-type': 'application/json',
         'Authorization': `Tasos ${jwt}`,
         }
     })
-      .then(res => {
-        let blob = new Blob([res]);
+      .then(res => res.blob())
+      .then((data)=> {
+        let blob = new Blob([data]);
         downloadLink.href = window.URL.createObjectURL(blob);
         downloadLink.download = fileName;
         downloadLink.click();
-        
         })
-      .then(()=> console.log("download success"))
       .catch(err => console.log(err));
     
 });
+
 
 // settings operations
 //image

@@ -3,8 +3,6 @@ export class MyHTTP {
     // Make an HTTP GET Request 
     
     async get(url, jwt) {
-      console.log('Tasos ' + jwt);
-      const h = new Headers();
       const response = await fetch(url, {
         method: 'GET',
         headers: 
