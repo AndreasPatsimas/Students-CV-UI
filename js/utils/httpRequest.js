@@ -77,4 +77,33 @@ export class MyHTTP {
       return resData;
     }
   
+
+       // File Handling
+   
+      async upload(url, data, jwt) {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Tasos ' + jwt
+          },
+          body: data
+        });
+
+        const resData = await response.json();
+        return resData;
+      }
+
+      async download(url, jwt) {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: 
+           {
+            'Authorization': `Tasos ${jwt}`,
+          }
+        });
+        const resData = await response.blob();
+        return resData;
+      }
+
    }
+

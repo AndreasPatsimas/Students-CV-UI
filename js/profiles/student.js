@@ -68,7 +68,7 @@ settings.addEventListener("click", () => {
 });
 
 //profile values
-console.log(jwt);
+
 http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
 .then(student => {
     console.log(student);
@@ -96,14 +96,19 @@ http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
 
     document.getElementById("fullname").textContent = `${student.firstname} ${student.lastname}`;
 
-    if(student.description != null)
+    if(student.description != null){
         document.getElementById("desc").textContent = `${student.description}`;
+
+        document.getElementById("description").value = `${student.description}`;
+    }
     
     document.getElementById("dob").textContent = `${student.dateOfbirth}`;
 
     document.getElementById("mob").textContent = `${student.mobilePhone}`;
+    document.getElementById("mobilePhone").value = `${student.mobilePhone}`;
 
     document.getElementById("mail").textContent = `${student.email}`;
+    document.getElementById("email").value = `${student.email}`;
 
     if(student.workExperience === true){
         
@@ -144,21 +149,10 @@ const upload = (file) => {
     formData.append('file', file);
 
     setTimeout(() => {
-        fetch(`http://localhost:8080/pada/student/uploadFile/${username}`, { 
-            method: 'POST',
-            headers: 
-            {
-            'Authorization': `Tasos ${jwt}`,
-            },
-            body: formData 
-        })
-        .then(
-            response => response.json()
-        )
+
+        http.upload(`http://localhost:8080/pada/student/uploadFile/${username}`, formData, jwt)
         .then((data)=> {
-        
-            console.log(data);
-    
+            
             document.querySelector("#loadingImage").style.display = "none";
     
             if(data.status === 500)
@@ -197,14 +191,8 @@ downloadCv.addEventListener("click", () => {
         fileName = localStorage.getItem("cv");
     else
         fileName = sessionStorage.getItem("cv");
-    fetch(`http://localhost:8080/pada/student/downloadFile/${username}/${fileName}`, {
-        method: 'GET',
-        headers: 
-        {
-        'Authorization': `Tasos ${jwt}`,
-        }
-    })
-      .then(res => res.blob())
+
+    http.download(`http://localhost:8080/pada/student/downloadFile/${username}/${fileName}`, jwt)
       .then((data)=> {
         let blob = new Blob([data]);
         downloadLink.href = window.URL.createObjectURL(blob);
@@ -280,8 +268,25 @@ deleteMyProfile.addEventListener("click", () => {
     
     let confirmation = confirm("Are you sure you want to delete your profile?");
 
-    if(confirmation)
-        console.log("confirm");
+    if(confirmation){
+
+        http.delete(`http://localhost:8080/pada/user/delete/profile/${username}`, jwt)
+            .then(res => {
+                console.log(res);
+
+                localStorage.removeItem("username");
+
+                localStorage.removeItem("jwt");
+
+                sessionStorage.removeItem("username");
+
+                sessionStorage.removeItem("jwt");
+
+                location.replace("authenticate.html");
+            })
+            .catch(error => console.log(error));
+    }
+        
     else
         console.log("No.")
 });
@@ -292,10 +297,14 @@ changePasswordLink.addEventListener("click", () => {
 
     document.querySelector('#id04').style.display='block';
 });
-document.querySelector("#username").value = "sotos";
+document.querySelector("#username").value = username;
 changePasswordForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
+
+    document.querySelector("#changeSuccess").style.display = "none";
+
+    document.querySelector("#changeFail").style.display = "none";
 
     let data = formToJSON(changePasswordForm.elements);
 
@@ -308,6 +317,26 @@ changePasswordForm.addEventListener("submit", (e) => {
         document.querySelector("#loadingImag").style.display = "block";
 
         console.log(data);
+
+        http.authenticatedPost("http://localhost:8080/pada/authenticate/changePassword", data, jwt)
+        .then(res => {
+            if(res.errorCode !== 406){
+                document.querySelector("#loadingImag").style.display = "none";
+                
+                document.querySelector("#changeSuccess").style.display = "block";
+            }
+            else{
+                document.querySelector("#loadingImag").style.display = "none";
+            
+                document.querySelector("#changeFail").style.display = "block";
+            }
+        })
+        .catch(res => {
+            console.log(res);
+            document.querySelector("#loadingImag").style.display = "none";
+            
+            document.querySelector("#changeFail").style.display = "block";
+        });
     }
     else
         document.querySelector('#diffPassw').style.display='block';
