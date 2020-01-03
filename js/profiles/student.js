@@ -217,6 +217,8 @@ settingsForm.addEventListener("submit", (e) => {
 
     e.preventDefault();
 
+    document.querySelector("#mailFail").style.display = "none";
+
     let settingsData = formToJSON(settingsForm.elements);
 
     if(document.querySelector("#ckb1").checked === true)
@@ -231,34 +233,33 @@ settingsForm.addEventListener("submit", (e) => {
 
             document.querySelector("#loadingIma").style.display = "block";
 
-            console.log(settingsData);
+            settingsData.username = username;
 
-            let isMailUnique = true;
+            http.put(`http://localhost:8080/pada/student/settings`, settingsData, jwt)
+            .then(res => {
+                if(res === "CREATED"){
+                    setTimeout(() => {
 
-            if(isMailUnique){
-                
-                setTimeout(() => {
+                        document.querySelector("#loadingIma").style.display = "none";
+                        
+                        document.querySelector("#mailSuccess").style.display = "block";
+                        
+                        setTimeout(() => location.reload(), 2000);
 
-                    document.querySelector("#loadingIma").style.display = "none";
-                    
-                    document.querySelector("#mailSuccess").style.display = "block";
-                    
-                    //setTimeout(() => location.reload(), 2000);
-
-                }, 3000);
-            }
+                    }, 3000);
+                }
+                else{
+                    setTimeout(() => {
+    
+                        document.querySelector("#loadingIma").style.display = "none";
+                        
+                        document.querySelector("#mailFail").style.display = "block";
+    
+                    }, 3000);
+                }
+            })
+            .catch(error => console.log(error))
             
-            else{
-                setTimeout(() => {
-
-                    document.querySelector("#loadingIma").style.display = "none";
-                    
-                    document.querySelector("#mailFail").style.display = "block";
-
-                }, 3000);
-            }
-            
-             
         }
         else
             document.querySelector("#mobReq").style.display = "block";
