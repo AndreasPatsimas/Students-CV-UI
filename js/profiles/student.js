@@ -130,7 +130,12 @@ http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
     document.getElementById("depart").textContent = `${getDepartment[student.department]}`;
 
 })
-.catch(error => console.log(error) /*location.replace("authenticate.html")*/);
+.catch(error => {
+    
+    console.log(error); 
+    
+    location.replace("authenticate.html");
+});
 
 
 //cv operations
