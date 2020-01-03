@@ -74,7 +74,7 @@ http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
     console.log(student);
 
     if(student.imagePath != null)
-        document.querySelectorAll(".profileImage").forEach(image => image.src = `images/ students/${username}/${student.imagePath}`);
+        document.querySelectorAll(".profileImage").forEach(image => image.src = `images/students/${username}/${student.imagePath}`);
     else
         document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg");
 
@@ -206,11 +206,66 @@ downloadCv.addEventListener("click", () => {
 
 // settings operations
 //image
-document.querySelector("#changePhotoLink").addEventListener("click", (e) => {
+
+const photoLink = document.querySelector("#changePhotoLink");
+const photoInput = document.querySelector("#changePhoto");
+
+photoLink.addEventListener("click", (e) => {
     e.preventDefault();
 
-    document.querySelector("#changePhoto").click();
+    photoInput.click();
 });
+
+const uploadImage = (image) => {
+
+    if(image.type.startsWith("image")){
+
+        document.querySelector("#no_image").style.display = "none";
+
+        document.querySelector("#loadingIm").style.display = "block";
+
+        const formData = new FormData();
+        
+        formData.append('file', image);
+
+        setTimeout(() => {
+
+            http.upload(`http://localhost:8080/pada/student/saveImage/${username}`, formData, jwt)
+            .then((data)=> {
+                
+                document.querySelector("#loadingIm").style.display = "none";
+
+                document.querySelector("#uploadImageFail").style.display = "none";
+        
+                if(data !== "ACCEPTED")
+                    document.querySelector("#uploadImageFail").style.display = "block";
+                else{
+                    document.querySelector("#uploadImageSuccess").style.display = "block";
+        
+                    setTimeout(() => {
+            
+                        document.querySelector("#uploadImageSuccess").style.display = "none";
+
+                        document.querySelector("#uploadImageFail").style.display = "none";
+
+                        location.reload();
+            
+                    }, 5000);
+                }
+
+            })
+            .catch(
+                error => console.log(error) 
+            );
+        }, 3000);
+    }
+    else
+        document.querySelector("#no_image").style.display = "block";
+}
+
+const onSelectImage = () => uploadImage(photoInput.files[0]);
+
+photoInput.addEventListener('change', onSelectImage, false);
 
 //form
 settingsForm.addEventListener("submit", (e) => {
@@ -293,7 +348,7 @@ deleteMyProfile.addEventListener("click", () => {
 });
 
 // change password
-//console.log(changePasswordLink);
+
 changePasswordLink.addEventListener("click", () => {
 
     document.querySelector('#id04').style.display='block';
