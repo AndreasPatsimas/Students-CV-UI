@@ -377,8 +377,6 @@ changePasswordForm.addEventListener("submit", (e) => {
 
         document.querySelector("#loadingImag").style.display = "block";
 
-        console.log(data);
-
         http.authenticatedPost("http://localhost:8080/pada/authenticate/changePassword", data, jwt)
         .then(res => {
             if(res.errorCode !== 406){
@@ -402,4 +400,4 @@ changePasswordForm.addEventListener("submit", (e) => {
     else
         document.querySelector('#diffPassw').style.display='block';
 
-})
+});

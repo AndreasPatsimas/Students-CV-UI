@@ -142,6 +142,10 @@
                                              <div class=" m-b-26">												
                                                  <a href="#" style="color: red;" id="deleteMyProfile"><i class="lnr lnr-power-switch"></i> Delete My Profile</a>
                                              </div>
+
+                                             <div class=" m-b-26">												
+                                                <a href="#" style="color: #008080;" id="change_password"><i class="lnr lnr-pencil"></i> Change Password</a>
+                                            </div>
      
                                              <div class="wrap-input100 validate-input m-b-26" data-validate=" is required">
                                                  <span class="label-input100">Company Name</span>
@@ -286,6 +290,56 @@
                 </div>
                 </div>
             </div>
+
+            				<!-- Change Password Modal -->
+				<div class="w3-container">
+					<div id="id04" class="w3-modal">
+						<div class="w3-modal-content">
+						<div class="w3-container">
+							<span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+							<form class="login100-form validate-form" id="changePasswordForm">
+
+								<div class="wrap-input100 validate-input " data-validate="Username is required">
+									<span class="label-input100">Username</span>
+									<input class="input100" type="text" name="username" id="username" placeholder="Enter username" disabled required>
+									<span class="focus-input100"></span>
+								</div>
+
+		
+								<div class="wrap-input100 validate-input" data-validate = "Password is required">
+									<span class="label-input100">Old Password</span>
+									<input class="input100" type="password" name="oldPassword" id="old_pass" placeholder="*************" required>
+									<span class="focus-input100"></span>
+								</div>
+								<div class="wrap-input100 validate-input" data-validate = "Password is required">
+									<span class="label-input100">New Password</span>
+									<input class="input100" type="password" name="newPassword" id="new_pass" placeholder="*************" required>
+									<span class="focus-input100"></span>
+								</div>
+
+								<div class="wrap-input100 validate-input m-b-18" data-validate = "Email is required">
+									<span class="label-input100">Repeat New Password</span>
+									<input class="input100" type="password" name="repeatPass"  id="repeat_pass" placeholder="*************" required>
+									<span class="focus-input100"></span>
+								</div>
+								<p style="display: none; color:red;" id="diffPassw">Different verified password. Please correct it.</p>
+
+								<br>
+								<div class="container-login100-form-btn">
+									<button class="login100-form-btn" type="submit">
+										Submit
+									</button>
+								</div>
+								<img id="loadingImag" src="images/loading.gif" style="display: none;">
+								<br><br><br><br>
+								<p style="display: none; color:#57b846;" id="changeSuccess">Your password has changed succesfully.</p>
+								<p style="display: none; color:red;" id="changeFail">Problem with change of password.</p>
+							</form>
+						
+						</div>
+						</div>
+					</div>
+				</div>
 
 
             <script src="js/profiles/company.js" type="module"></script>
