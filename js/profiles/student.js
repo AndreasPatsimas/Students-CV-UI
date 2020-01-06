@@ -71,7 +71,9 @@ settings.addEventListener("click", () => {
 
 http.get(`http://localhost:8080/pada/student/profile/${username}`, jwt)
 .then(student => {
-    console.log(student);
+    
+    if(student.status === 500)
+        location.replace("authenticate.html");
 
     if(student.imagePath != null)
         document.querySelectorAll(".profileImage").forEach(image => image.src = `images/students/${username}/${student.imagePath}`);
