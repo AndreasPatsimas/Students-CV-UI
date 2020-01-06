@@ -1,4 +1,29 @@
 import{ formToJSON } from '../utils/bind.js';
+import{ MyHTTP } from '../utils/httpRequest.js';
+import{ getDepartment } from '../utils/department.js';
+
+const http = new MyHTTP;
+
+//get storage
+let username;
+
+let jwt;
+
+if(localStorage.getItem("username") == null && sessionStorage.getItem("username") == null)
+    location.replace("authenticate.html");
+
+else if(localStorage.getItem("username") != null){
+
+    username = localStorage.getItem("username");
+
+    jwt = localStorage.getItem("jwt");
+}
+else{
+
+    username = sessionStorage.getItem("username");
+
+    jwt = sessionStorage.getItem("jwt")
+}
 
 //constant fields
 const homeArea = document.querySelector("#homeArea"),
@@ -101,7 +126,7 @@ table.onclick = ("click", "tr", (ap) => {
     let clickedRow = ap.path[1];
 
     if(clickedRow.id != "th"){
-        console.log(clickedRow);
+        console.log(clickedRow.getElementsByTagName("td")[2].textContent);
         document.getElementById('id02').style.display='block';
     }
 })
