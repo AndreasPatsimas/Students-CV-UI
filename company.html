@@ -59,13 +59,13 @@
                                  <div class="media-body">
                                      <div class="personal_text">
                                          <h6>Welcome ,</h6>
-                                         <h3>ARIS FC</h3>
+                                         <h3 id="company_name">ARIS FC</h3>
                                          <h4>our students-cv application is available for you</h4>
                                          <p>Our purpose is to help effectively connection between students and companies. As a company you have the opportunity, by purchasing units, to download as many student resumes as the units are.</p>
                                          <ul class="list basic_info">
                                              <!-- <li><a href="#"><i class="lnr lnr-calendar-full"></i> 31st December, 1992</a></li> -->
-                                             <li><a href="#"><i class="lnr lnr-envelope"></i> businessplan@donald</a></li>
-                                             <li><a href="#"><i class="lnr lnr-database"></i> units: 44</a></li>
+                                             <li><a href="#"><i class="lnr lnr-envelope"></i><span id="mail">businessplan@donald</span> </a></li>
+                                             <li><a href="#"><i class="lnr lnr-database"></i> units: <span id="units">44</span></a></li>
                                          </ul>
                                          <ul class="list personal_social">
                                              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -149,7 +149,7 @@
      
                                              <div class="wrap-input100 validate-input m-b-26" data-validate=" is required">
                                                  <span class="label-input100">Company Name</span>
-                                                 <input class="input100" type="text" name="companyName" placeholder="Enter company name" required>
+                                                 <input class="input100" type="text" name="companyName" id="companyName" placeholder="Enter company name" required>
                                                  <span class="focus-input100"></span>
                                              </div>
                              
@@ -161,7 +161,7 @@
                                  
                                             <div class="wrap-input100 validate-input m-b-18" data-validate = "is required">
                                                 <span class="label-input100">Units</span>
-                                                <input class="input100" type="number" name="units" id="units" placeholder="Enter number of units you want to buy. Each unit costs 5€">
+                                                <input class="input100" type="number" name="units" id="units" placeholder="Buy units. Each unit costs 5€.">
                                                 <span class="focus-input100"></span>
                                             </div>
                                                  

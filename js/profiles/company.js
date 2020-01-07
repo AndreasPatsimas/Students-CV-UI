@@ -80,6 +80,39 @@ search.addEventListener("click", () => {
     settingsArea.style.display = "none";
 });
 
+// profile company
+
+http.get(`http://localhost:8080/pada/company/profile/${username}`, jwt)
+.then(company => {
+
+    console.log(company);
+    
+    // if(company.status === 500)
+    //     location.replace("authenticate.html");
+
+    if(company.logoPath != null)
+        document.querySelectorAll(".profileImage").forEach(image => image.src = `images/companies/${username}/${company.logoPath}`);
+    else
+        document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg");
+
+    document.querySelector("#company_name").textContent = `${company.companyName}`;
+
+    document.querySelector("#mail").textContent = `${company.email}`;
+
+    document.querySelector("#units").textContent = `${company.units}`;
+
+    document.querySelector("#companyName").value = `${company.companyName}`;
+
+    document.querySelector("#email").value = `${company.email}`;
+
+})
+.catch(error => {
+    
+    console.log(error); 
+    
+    //location.replace("authenticate.html");
+});
+
 // search operations
 
 //search students by department and work experience
@@ -136,9 +169,9 @@ table.onclick = ("click", "tr", (ap) => {
 // settings operations
 
 //profile values
-document.querySelectorAll(".profileImage").forEach(image => image.src = "images/pada.jpg");
 
 document.querySelector("#changePhotoLink").addEventListener("click", (e) => {
+    
     e.preventDefault();
 
     document.querySelector("#changePhoto").click();
@@ -186,8 +219,25 @@ deleteMyProfile.addEventListener("click", () => {
     
     let confirmation = confirm("Are you sure you want to delete your profile?");
 
-    if(confirmation)
-        console.log("confirm");
+    if(confirmation){
+
+        http.delete(`http://localhost:8080/pada/user/delete/profile/${username}`, jwt)
+            .then(res => {
+                console.log(res);
+
+                localStorage.removeItem("username");
+
+                localStorage.removeItem("jwt");
+
+                sessionStorage.removeItem("username");
+
+                sessionStorage.removeItem("jwt");
+
+                location.replace("authenticate.html");
+            })
+            .catch(error => console.log(error));
+    }
+        
     else
         console.log("No.")
 });
@@ -216,8 +266,6 @@ changePasswordForm.addEventListener("submit", (e) => {
         delete data.repeatPass;
 
         document.querySelector("#loadingImag").style.display = "block";
-
-        console.log(data);
 
         http.authenticatedPost("http://localhost:8080/pada/authenticate/changePassword", data, jwt)
         .then(res => {

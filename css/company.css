@@ -34,3 +34,9 @@
   .handy{
     cursor: pointer;
   }
+
+  .profileImage{
+    height: 200px; 
+    
+    width: 200px;
+  }
