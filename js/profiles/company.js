@@ -25,6 +25,22 @@ else{
     jwt = sessionStorage.getItem("jwt")
 }
 
+const getAge = (dateString) => {
+
+    var today = new Date();
+    
+    var birthDate = new Date(dateString);
+    
+    var age = today.getFullYear() - birthDate.getFullYear();
+   
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+};
+
 //constant fields
 const homeArea = document.querySelector("#homeArea"),
 
@@ -138,10 +154,86 @@ searchForm.addEventListener("submit", (e) => {
         setTimeout(() => {
 
             document.querySelector("#loadingImage").style.display = "none";
-            
-            console.log(searchData);
 
-            document.getElementById('id01').style.display='block';
+            const tbody = document.createElement("tbody");
+
+            const trh = document.createElement("tr");
+            trh.setAttribute("id", "th");
+
+            const th = document.createElement("th");
+            th.textContent = "-";
+
+            const fullnameTh = document.createElement("th");
+            fullnameTh.textContent = "FULLNAME";
+
+            const emailTh = document.createElement("th");
+            emailTh.textContent = "EMAIL";
+
+            const ageTh = document.createElement("th");
+            ageTh.textContent = "AGE";
+
+            trh.appendChild(th);
+            trh.appendChild(fullnameTh);
+            trh.appendChild(emailTh);
+            trh.appendChild(ageTh);
+
+            tbody.appendChild(trh);
+
+            http.get(`http://localhost:8080/pada/company/search/students/${username}/${searchData.department}/${searchData.workExperience}`, jwt)
+            .then(students => {
+
+                students.forEach(student => {
+                    
+                    const tr = document.createElement("tr");
+                    tr.setAttribute("class", "handy");
+                    
+                    const imageTd = document.createElement("td");
+
+                    if(student.imagePath != null){
+                        const img = document.createElement("img");
+                        img.setAttribute("class","profile_image");
+                        img.setAttribute("src",`images/students/${student.username}/${student.imagePath}`);
+                        img.setAttribute("alt","-");
+                        imageTd.appendChild(img);
+                    }
+                    else
+                        imageTd.textContent = "-";
+
+                    const fullname = document.createElement("td");
+                    fullname.textContent = `${student.firstname} ${student.lastname}`;
+
+                    const email = document.createElement("td");
+                    email.textContent = student.email;
+
+                    const age = document.createElement("td");
+                    age.textContent = getAge(student.dateOfbirth);
+
+                    tr.appendChild(imageTd);
+                    tr.appendChild(fullname);
+                    tr.appendChild(email);
+                    tr.appendChild(age);
+
+                    tbody.appendChild(tr);
+
+                    table.appendChild(tbody);
+
+                })
+
+                let options = {
+                    numberPerPage:5, //Ποσό δεδομένων ανά σελίδα
+                    goBar:true, //Γραμμή όπου μπορείτε να πληκτρολογήσετε τον αριθμό της σελίδας στην οποία θέλετε να μεταβείτε
+                    pageCounter:true, //Ο μετρητής σελίδας, στον οποίο είστε ένας από εσάς, πόσες σελίδες
+                };
+                
+                let filterOptions = {
+                    el:'#searchBox' //Το πλαίσιο κειμένου για φιλτράρισμα, μπορεί να είναι μια class ή ένα id
+                };
+                
+                paginate.init('.myTable',options,filterOptions);
+
+                document.getElementById('id01').style.display='block';
+            })
+            .catch(error => console.log(error))
 
         }, 3000);               
 
@@ -151,6 +243,13 @@ searchForm.addEventListener("submit", (e) => {
         document.querySelector("#departChoice").style.display = "block";
 
 });
+
+document.querySelector("#closeModal").onclick = () => {
+
+    document.getElementById("tableId").removeChild(document.querySelector("tbody"));
+    
+    document.getElementById('id01').style.display='none';
+};
 
 //search_table
 
@@ -170,12 +269,65 @@ table.onclick = ("click", "tr", (ap) => {
 
 //profile values
 
-document.querySelector("#changePhotoLink").addEventListener("click", (e) => {
-    
+const photoLink = document.querySelector("#changePhotoLink");
+const photoInput = document.querySelector("#changePhoto");
+
+photoLink.addEventListener("click", (e) => {
     e.preventDefault();
 
-    document.querySelector("#changePhoto").click();
+    photoInput.click();
 });
+
+const uploadImage = (image) => {
+
+    if(image.type.startsWith("image")){
+
+        document.querySelector("#no_image").style.display = "none";
+
+        document.querySelector("#loadingIm").style.display = "block";
+
+        const formData = new FormData();
+        
+        formData.append('file', image);
+
+        setTimeout(() => {
+
+            http.upload(`http://localhost:8080/pada/company/saveImage/${username}`, formData, jwt)
+            .then((data)=> {
+                
+                document.querySelector("#loadingIm").style.display = "none";
+
+                document.querySelector("#uploadImageFail").style.display = "none";
+        
+                if(data !== "ACCEPTED")
+                    document.querySelector("#uploadImageFail").style.display = "block";
+                else{
+                    document.querySelector("#uploadImageSuccess").style.display = "block";
+        
+                    setTimeout(() => {
+            
+                        document.querySelector("#uploadImageSuccess").style.display = "none";
+
+                        document.querySelector("#uploadImageFail").style.display = "none";
+
+                        location.reload();
+            
+                    }, 5000);
+                }
+
+            })
+            .catch(
+                error => console.log(error) 
+            );
+        }, 3000);
+    }
+    else
+        document.querySelector("#no_image").style.display = "block";
+}
+
+const onSelectImage = () => uploadImage(photoInput.files[0]);
+
+photoInput.addEventListener('change', onSelectImage, false);
 
 //form
 settingsForm.addEventListener("submit", (e) => {
@@ -184,34 +336,37 @@ settingsForm.addEventListener("submit", (e) => {
 
     let settingsData = formToJSON(settingsForm.elements);
 
+    settingsData.username = username;
+
     document.querySelector("#loadingIma").style.display = "block";
 
-    console.log(settingsData);
+    if(settingsData.units == "")
+        settingsData.units = 0;
 
-    let isMailUnique = true;
+        http.put(`http://localhost:8080/pada/company/settings`, settingsData, jwt)
+        .then(res => {
+            if(res === "CREATED"){
+                setTimeout(() => {
 
-    if(isMailUnique){
-        
-        setTimeout(() => {
+                    document.querySelector("#loadingIma").style.display = "none";
+                    
+                    document.querySelector("#mailSuccess").style.display = "block";
+                    
+                    setTimeout(() => location.reload(), 2000);
 
-            document.querySelector("#loadingIma").style.display = "none";
-            
-            document.querySelector("#mailSuccess").style.display = "block";
-            
-            setTimeout(() => location.reload(), 2000);
+                }, 3000);
+            }
+            else{
+                setTimeout(() => {
 
-        }, 3000);
-    }
-    
-    else{
-        setTimeout(() => {
+                    document.querySelector("#loadingIma").style.display = "none";
+                    
+                    document.querySelector("#mailFail").style.display = "block";
 
-            document.querySelector("#loadingIma").style.display = "none";
-            
-            document.querySelector("#mailFail").style.display = "block";
-
-        }, 3000);
-    }  
+                }, 3000);
+            }
+        })
+        .catch(error => console.log(error))  
         
 });
 
