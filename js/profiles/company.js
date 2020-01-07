@@ -64,7 +64,11 @@ const homeArea = document.querySelector("#homeArea"),
 
       searchArea = document.querySelector("#searchArea"),
       
-      table = document.querySelector("#tableId");
+      table = document.querySelector("#tableId"),      
+      
+      downloadLink = document.createElement('a');
+
+      downloadLink.style.display = "none";
 
 
 
@@ -102,6 +106,8 @@ http.get(`http://localhost:8080/pada/company/profile/${username}`, jwt)
 .then(company => {
 
     console.log(company);
+
+    localStorage.setItem("units", company.units);
     
     // if(company.status === 500)
     //     location.replace("authenticate.html");
@@ -258,7 +264,76 @@ table.onclick = ("click", "tr", (ap) => {
     let clickedRow = ap.path[1];
 
     if(clickedRow.id != "th"){
-        console.log(clickedRow.getElementsByTagName("td")[2].textContent);
+
+        const email = clickedRow.getElementsByTagName("td")[2].textContent;
+
+        http.get(`http://localhost:8080/pada/company/student/profile/${username}/${email}`, jwt)
+        .then(student => {
+            console.log(student);
+
+            if(student.imagePath != null){
+                document.querySelector(".student_profile_image").src = `images/students/${student.username}/${student.imagePath}`;
+            }
+            else
+                document.querySelector(".student_profile_image").src = "images/pada.jpg";
+
+                document.querySelector("#fullnameSt").textContent = `${student.firstname} ${student.lastname}`;
+                document.querySelector("#deptSt").textContent = `${getDepartment[student.department]}`;
+
+                if(student.description != null)
+                    document.querySelector("#descSt").textContent = `${student.description}`;
+                else
+                    document.querySelector("#descSt").textContent = `No description`;
+
+                document.querySelector("#dobSt").textContent = `${student.dateOfbirth}`;
+                document.querySelector("#mobSt").textContent = `${student.mobilePhone}`;
+                document.querySelector("#mailSt").textContent = `${student.email}`;
+                
+                if(student.workExperience === true){
+        
+                    document.getElementById("nonWorkExp").style.display = "none";
+            
+                    document.getElementById("workExp").style.display = "";
+                }
+                else{
+                    
+                    document.getElementById("nonWorkExp").style.display = "";
+            
+                    document.getElementById("workExp").style.display = "none";            
+                }
+
+                if(student.cv != null){
+
+                    let fileName = student.cv.fileName;
+                    
+                    document.getElementById("no-cv").style.display = "none";
+            
+                    document.getElementById("uploaded-cv").style.display = "";
+
+                    document.getElementById("downloadCv").addEventListener("click", () => {
+                    
+                        http.download(`http://localhost:8080/pada/company/downloadFile/${username}/${student.username}/${localStorage.getItem("units")}/${fileName}`, jwt)
+                          .then((data)=> {
+                            let blob = new Blob([data]);
+                            downloadLink.href = window.URL.createObjectURL(blob);
+                            downloadLink.download = fileName;
+                            downloadLink.click();
+
+                            setTimeout(() => location.reload(), 2000)
+                            })
+                          .catch(err => console.log(err));
+                        
+                    });
+                }
+                else{
+
+                    document.getElementById("no-cv").style.display = "";
+            
+                    document.getElementById("uploaded-cv").style.display = "none"; 
+                }
+        })
+        .catch(error => console.log(error))
+        
         document.getElementById('id02').style.display='block';
     }
 })
