@@ -312,7 +312,7 @@ table.onclick = ("click", "tr", (ap) => {
 
                     document.getElementById("downloadCv").addEventListener("click", () => {
                     
-                        http.download(`http://localhost:8080/pada/company/downloadFile/${username}/${student.username}/${localStorage.getItem("units")}/${fileName}`, jwt)
+                        http.download(`http://localhost:8080/pada/company/downloadFile/${username}/${student.username}/${fileName}`, jwt)
                           .then((data)=> {
                             let blob = new Blob([data]);
                             downloadLink.href = window.URL.createObjectURL(blob);
