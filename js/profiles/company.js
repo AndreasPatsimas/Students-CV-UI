@@ -109,8 +109,8 @@ http.get(`http://localhost:8080/pada/company/profile/${username}`, jwt)
 
     localStorage.setItem("units", company.units);
     
-    // if(company.status === 500)
-    //     location.replace("authenticate.html");
+    if(company.status === 500)
+        location.replace("authenticate.html");
 
     if(company.logoPath != null)
         document.querySelectorAll(".profileImage").forEach(image => image.src = `images/companies/${username}/${company.logoPath}`);
