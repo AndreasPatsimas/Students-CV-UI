@@ -155,6 +155,8 @@ searchForm.addEventListener("submit", (e) => {
     
         document.querySelector("#departChoice").style.display = "none";
 
+        document.querySelector("#students_not_found").style.display = "none";
+
         document.querySelector("#loadingImage").style.display = "block";
 
         setTimeout(() => {
@@ -237,9 +239,14 @@ searchForm.addEventListener("submit", (e) => {
                 
                 paginate.init('.myTable',options,filterOptions);
 
-                document.getElementById('id01').style.display='block';
+                document.getElementById('id01').style.display ='block';
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                
+                console.log(error);
+
+                document.querySelector("#students_not_found").style.display = "block";
+            })
 
         }, 3000);               
 
