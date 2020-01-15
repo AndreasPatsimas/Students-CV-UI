@@ -132,7 +132,7 @@ http.get(`http://localhost:8080/pada/company/profile/${username}`, jwt)
     
     console.log(error); 
     
-    //location.replace("authenticate.html");
+    location.replace("authenticate.html");
 });
 
 // search operations
