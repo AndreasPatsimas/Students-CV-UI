@@ -403,3 +403,18 @@ changePasswordForm.addEventListener("submit", (e) => {
         document.querySelector('#diffPassw').style.display='block';
 
 });
+
+//Logout
+
+document.getElementById('logout').addEventListener('click', (e) => {
+    
+    localStorage.removeItem("username");
+
+    localStorage.removeItem("jwt");
+
+    sessionStorage.removeItem("username");
+
+    sessionStorage.removeItem("jwt");
+
+    location.replace("authenticate.html");
+});
