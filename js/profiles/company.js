@@ -321,12 +321,13 @@ table.onclick = ("click", "tr", (ap) => {
                     
                         http.download(`http://localhost:8080/pada/company/downloadFile/${username}/${student.username}/${fileName}`, jwt)
                           .then((data)=> {
+
                             let blob = new Blob([data]);
                             downloadLink.href = window.URL.createObjectURL(blob);
                             downloadLink.download = fileName;
                             downloadLink.click();
-
-                            setTimeout(() => location.reload(), 2000)
+                            
+                            //setTimeout(() => location.reload(), 2000)
                             })
                           .catch(err => console.log(err));
                         
@@ -344,6 +345,16 @@ table.onclick = ("click", "tr", (ap) => {
         document.getElementById('id02').style.display='block';
     }
 })
+
+document.querySelector("#closeModalStudent").onclick = () => {
+
+
+
+    document.getElementById('id02').style.display='none';
+    
+};
+
+
 
 
 
